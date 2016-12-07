@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/main.cpp"
+            timestampString = "502845657.34367"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "readInput(const char * filename, vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "readInput(char const*, std::__1::vector&lt;std::__1::vector&lt;bool, std::__1::allocator&lt;bool&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;bool, std::__1::allocator&lt;bool&gt; &gt; &gt; &gt;&amp;)"
+                  moduleName = "ocra"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexmayle/Documents/CS4420/ocra/ocra/main.cpp"
+                  timestampString = "502573177.884941"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "2428">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "readInput(char const*, std::__1::vector&lt;std::__1::vector&lt;bool, std::__1::allocator&lt;bool&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;bool, std::__1::allocator&lt;bool&gt; &gt; &gt; &gt;&amp;)"
+                  moduleName = "ocra"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexmayle/Documents/CS4420/ocra/ocra/main.cpp"
+                  timestampString = "502573177.887843"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "2838">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/main.cpp"
+            timestampString = "502845657.34367"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "readInput(const char * filename, vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/main.cpp"
+            timestampString = "502845657.34367"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "makeBox(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; blackPixelLocation, BoundingBox * result)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/main.cpp"
+            timestampString = "502845657.34367"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "makeBox(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; blackPixelLocation, BoundingBox * result)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/main.cpp"
+            timestampString = "502845657.34367"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "readInput(const char * filename, vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/main.cpp"
+            timestampString = "502845657.34367"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "readInput(const char * filename, vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/BoundingBox.cpp"
+            timestampString = "502702000.672893"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "BoundingBox::checkPerimeter(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; lastBlackPixelVisited)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/Coordinate.cpp"
+            timestampString = "502701980.582512"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "Coordinate::getCardinalNeighbor(const vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, const Coordinate&amp; partitionMin, const Coordinate&amp; partitionMax, const BoundingBox&amp; boundingBox)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/BoundingBox.cpp"
+            timestampString = "502702000.672893"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "BoundingBox::checkPerimeter(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; lastBlackPixelVisited)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/Coordinate.cpp"
+            timestampString = "502701980.582512"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "Coordinate::getAnyNeighbor(const vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, const Coordinate&amp; partitionMin, const Coordinate&amp; partitionMax, const BoundingBox&amp; boundingBox, const Direction direction, int distance)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/Coordinate.cpp"
+            timestampString = "502704754.015263"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
+            landmarkName = "Coordinate::getAnyNeighbor(const vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, const Coordinate&amp; partitionMin, const Coordinate&amp; partitionMax, const BoundingBox&amp; boundingBox, const Direction direction, int distance)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/Coordinate.cpp"
+            timestampString = "502704754.015263"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "Coordinate::getAnyNeighbor(const vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, const Coordinate&amp; partitionMin, const Coordinate&amp; partitionMax, const BoundingBox&amp; boundingBox, const Direction direction, int distance)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/Coordinate.cpp"
+            timestampString = "502704754.015263"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "Coordinate::getAnyNeighbor(const vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, const Coordinate&amp; partitionMin, const Coordinate&amp; partitionMax, const BoundingBox&amp; boundingBox, const Direction direction, int distance)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/main.cpp"
+            timestampString = "502845657.34367"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "main(int argc, const char * argv[])"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/main.cpp"
+            timestampString = "502845657.34367"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "main(int argc, const char * argv[])"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/main.cpp"
+            timestampString = "502845852.526259"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "findBlackPixel(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; startingPoint, Coordinate * result, vector&lt;BoundingBox&gt;&amp; boxes, Coordinate&amp; partitionMin, Coordinate&amp; partitionMax)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
