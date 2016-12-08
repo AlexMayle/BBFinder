@@ -129,3 +129,14 @@ void BoundingBox::printToBitmap(vector< vector<bool> >& bitmap) const {
     }
 }
 
+void BoundingBox::eraseFromBitmap(vector< vector<bool> >& bitmap) const {
+    for (int i = mMin.y(); i <= mMax.y(); ++i) {
+        bitmap[i][mMin.x()] = false;
+        bitmap[i][mMax.x()] = false;
+    }
+    for (int j = mMin.x(); j <= mMax.x(); ++j) {
+        bitmap[mMin.y()][j] = false;
+        bitmap[mMax.y()][j] = false;
+    }
+}
+

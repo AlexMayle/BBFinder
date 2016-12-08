@@ -212,10 +212,6 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
 //    eBound = partitionMax.x() - mX;
 //    if (eBound > 3) eBound = 3;
     
-    //  DEBUG
-    this->print();
-    cout << " N: " << nBound << " S: " << sBound << " W: " << wBound << " E: " << eBound << endl;
-    
     //   +X direction
     if (mX == boundingBox.max().x()) {
         for (int y = mY - nBound; y <= mY + sBound; ++y) {

@@ -57,7 +57,7 @@ public:
     }
     
     inline bool operator==(const Coordinate& other) const {
-        return ((mX == other.x()) && (mY == other.y()));
+        return ((mX == other.mX) && (mY == other.mY));
     }
     
     inline bool operator!=(const Coordinate& other) const {

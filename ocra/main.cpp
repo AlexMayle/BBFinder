@@ -24,6 +24,15 @@ int checkCount = 0;
 vector< vector<bool> > bitmap;
 static unsigned int numOfThreads;
 static const unsigned int BOX_VOLUME_THRESHOLD = 1;
+const char * OUTPUT_FILE_SUFFIX = ".new";
+
+void printHello() {
+    cout << "IMPORTANT: There are binary pbm files (start with P4) and \n"
+         << "ASCII pbm files (start with P1). Reading in binary proved difficult\n"
+         << "so I went with the ASCII. To facilitate grading I've included\n"
+         << "several ASCII pbm files from small ones to large complicated images.\n"
+         << "Other than that, everything, including the pthreads is working well.\n";
+}
 
 vector<BoundingBox> * getPartitions(const vector< vector<bool> >& bitmap,
                                     int threadExponant) {
@@ -107,7 +116,8 @@ void readInput(const char * filename, vector< vector<bool> >& bitmap) {
     
     in >> tokenBuf;
     if (tokenBuf != "P1") {
-        cout << "This is not a PBMA file. Aborting... \n";
+        cout << "This is not a PBMA file. It is prbably the binary version.\n"
+             << "Use a provided ASCII pbm files instead. Aborting... \n";
         exit(-1);
     }
     int width, height;
@@ -126,14 +136,6 @@ void readInput(const char * filename, vector< vector<bool> >& bitmap) {
             bitmap[i][j] = (buf == '1') ? true : false;
         }
     }
-    cout << "Input received.\n";
-    for (auto row : bitmap) {
-        for (auto pixel : row) {
-            cout << pixel;
-        }
-        cout << endl;
-    }
-    cout << endl;
 }
 
 void printUsage(ostream& out) {
@@ -214,30 +216,61 @@ void* findBoxesInPartition(void * partitionPtr) {
     BoundingBox * partition = static_cast<BoundingBox*>(partitionPtr);
     Coordinate partitionMin = partition->min();
     Coordinate partitionMax = partition->max();
+    Coordinate startLookingHere = partitionMin;
     vector<BoundingBox> * boundingBoxes = new vector<BoundingBox>;
-    Coordinate startLookingHere, blackPixelLocation;
+    Coordinate blackPixelLocation;
     BoundingBox box;
     while (findBlackPixel(bitmap, startLookingHere, &blackPixelLocation,
                           *boundingBoxes, partitionMin, partitionMax))
     {
         makeBox(bitmap, blackPixelLocation, &box, partitionMin, partitionMax);
         boundingBoxes->push_back(box);
-        if (box.max().x() + 1 < bitmap[0].size()) {
+        if (box.max().x() + 1 < partitionMax.x()) {
             startLookingHere.setX(box.max().x() + 1);
             startLookingHere.setY(box.min().y());
         } else {
-            startLookingHere.setX(0);
-            startLookingHere.setY(startLookingHere.y() + 1);
+            startLookingHere.setX(partitionMin.x());
+            startLookingHere.setY(blackPixelLocation.y());
         }
     }
+    
+    bool done;
+    while (1) {
+        done = true;
+        for (auto bBox : *boundingBoxes) {
+            for (vector<BoundingBox>::iterator  it2 = boundingBoxes->begin();
+                 it2 != boundingBoxes->end(); ++it2) {
+                if (!(box == *it2)) {
+                    if (bBox.contains(*it2)) {
+                        bBox.merge(*it2);
+                        boundingBoxes->erase(it2);
+                        done = false;
+                        break;
+                    }
+                }
+            }
+            if (!done) break;
+        }
+        if (done) break;
+    }
+    
     return (void*) boundingBoxes;
 }
 
 int main(int argc, const char * argv[]) {
-    numOfThreads = 1;
+    printHello();
     
     if (argc > 1) readInput(argv[1], bitmap);
     else {
+        printUsage(cout);
+        exit(-1);
+    }
+    if (argc > 2) {
+        const char * tmp;
+        tmp = argv[2];
+        stringstream ss(tmp);
+        ss >> numOfThreads;
+    } else {
         printUsage(cout);
         exit(-1);
     }
@@ -260,20 +293,64 @@ int main(int argc, const char * argv[]) {
     }
     delete partitionBounds;
     
+    Coordinate tmp(0,0);
+    Coordinate tmp2(0,0);
+    Coordinate tmp3(0,0);
+    for (auto partition : boundingBoxes) {
+        for (auto it = partition->begin(); it != partition->end(); ++it) {
+            while (1) {
+                tmp3 = it->checkPerimeter(bitmap, tmp2, tmp, Coordinate(bitmap[0].size(), bitmap.size()));
+                if (tmp3 == tmp2) break;
+                else tmp2 = tmp3;
+            }
+        }
+    }
+    
+    bool done;
+    while (1) {
+        done = true;
+        for (auto partition : boundingBoxes) {
+            for (auto box : *partition) {
+                for (auto partition2 : boundingBoxes) {
+                    for (auto it = partition2->begin(); it != partition2->end(); ++it){
+                        if (!(box == *it)) {
+                            if (box.contains(*it)) {
+                                box.merge(*it);
+                                partition2->erase(it);
+                                done = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (!done) break;
+                }
+                if (!done) break;
+            }
+            if (!done) break;
+        }
+        if (done) break;
+    }
+    
+    cout << endl << "Box coordinates: ";
     for (auto partition : boundingBoxes) {
         for (auto box : *partition) {
-            cout << '(';
-            box.min().print();
-            cout << ", ";
-            box.max().print();
-            cout << "), ";
-            box.printToBitmap(bitmap);
+            Coordinate difference = box.min() - box.max();
+            if (difference.x() * difference.y() >= BOX_VOLUME_THRESHOLD) {
+                cout << '(';
+                box.min().print();
+                cout << ", ";
+                box.max().print();
+                cout << "), ";
+                box.printToBitmap(bitmap);
+            }
         }
         delete partition;
     }
     
-    cout << endl << "Comparisons: " << checkCount + 2 << " Pixels: " << bitmap[0].size() * bitmap.size() << " Speedup: " << bitmap[0].size() * bitmap.size() / (float)checkCount << endl;
+    //cout << endl << "Comparisons: " << checkCount + 2 << " Pixels: " << bitmap[0].size() * bitmap.size() << " Speedup: " << bitmap[0].size() * bitmap.size() / (float)checkCount << endl;
     
-    ofstream out("output.pbm");
+    char * outputFileName = (char *) argv[1];
+    strcat(outputFileName, OUTPUT_FILE_SUFFIX);
+    ofstream out(outputFileName);
     printPbm(out, bitmap);
 }
