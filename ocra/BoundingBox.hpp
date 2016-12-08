@@ -54,7 +54,9 @@ public:
     void expandBoundaries(Coordinate& blackPixel);
     
     const Coordinate checkPerimeter(vector< vector<bool> >& bitmap,
-                                   Coordinate& lastBlackPixelVisited);
+                                    Coordinate& lastBlackPixelVisited,
+                                    const Coordinate& partitionMin,
+                                    const Coordinate& partitionMax);
     
     void printToBitmap(vector< vector<bool> >& bitmap) const;
     

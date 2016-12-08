@@ -149,8 +149,8 @@ bool findBlackPixel(vector< vector<bool> >& bitmap,
     return false;
 }
 
-void makeBox(vector< vector<bool> >& bitmap, Coordinate& blackPixelLocation,
-             BoundingBox * result, Coordinate partitionMin, Coordinate partitionMax) {
+void makeBox(vector< vector<bool> >& bitmap, const Coordinate& blackPixelLocation,
+             BoundingBox * result, const Coordinate& partitionMin, const Coordinate& partitionMax) {
     Coordinate newStartingPoint = blackPixelLocation;
     BoundingBox boundingBox = BoundingBox(newStartingPoint, newStartingPoint);
     Coordinate neighbor;
@@ -165,7 +165,9 @@ void makeBox(vector< vector<bool> >& bitmap, Coordinate& blackPixelLocation,
             boundingBox.expandBoundaries(neighbor);
             cursor = neighbor;
         }
-        newStartingPoint = boundingBox.checkPerimeter(bitmap, cursor);
+        newStartingPoint = boundingBox.checkPerimeter(bitmap, cursor,
+                                                      partitionMin,
+                                                      partitionMax);
     } while (cursor != newStartingPoint);
     
     *result = boundingBox;

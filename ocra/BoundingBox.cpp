@@ -23,7 +23,9 @@ void BoundingBox::expandBoundaries(Coordinate& blackPixel) {
 }
 
 const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
-                                            Coordinate& lastBlackPixelVisited) {
+                                             Coordinate& lastBlackPixelVisited,
+                                             const Coordinate& partitionMin,
+                                             const Coordinate& partitionMax) {
         //  +X direction
     int distanceFromLastBlackPixel = 0;
         for (int i = mMax.y() - 1; i >= mMin.y(); --i) {
