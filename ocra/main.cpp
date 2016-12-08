@@ -14,6 +14,7 @@
 #include <vector>
 #include <pthread.h>
 #include <sys/types.h>
+#include <math.h>
 
 #include "Coordinate.hpp"
 #include "BoundingBox.hpp"
@@ -23,6 +24,42 @@ int checkCount = 0;
 vector< vector<bool> > bitmap;
 static unsigned int numOfThreads;
 static const unsigned int BOX_VOLUME_THRESHOLD = 1;
+
+vector<BoundingBox> * getPartitions(const vector< vector<bool> >& bitmap,
+                                    int threadExponant) {
+        vector<BoundingBox> * partitions = new vector<BoundingBox>;
+    if (threadExponant == 0) {
+        Coordinate min(0, 0);
+        Coordinate max(bitmap[0].size(), bitmap.size());
+        BoundingBox boundingBox(min, max);
+        partitions->emplace_back(min, max);
+        return partitions;
+    } else {
+        size_t xPartitions = 2;
+        size_t yPartitions = pow(2, threadExponant -1);
+        size_t partitionWidth = bitmap[0].size() / xPartitions;
+        size_t partitionHeight = bitmap.size() / yPartitions;
+        size_t croppedPartitionWidth = bitmap[0].size() % partitionWidth;
+        size_t croppedPartitionHeight = bitmap.size() % partitionHeight;
+        
+        for (int i = 0; i < yPartitions - 1; ++i) {
+            Coordinate min(0, partitionHeight * i);
+            Coordinate max(partitionWidth, partitionHeight * (i + 1));
+            partitions->emplace_back(min, max);
+            min = Coordinate(partitionWidth, min.y());
+            max = Coordinate(bitmap[0].size(), max.y());
+            partitions->emplace_back(min, max);
+        }
+        //  Last two
+        Coordinate min(0, partitionHeight * (yPartitions - 1));
+        Coordinate max(partitionWidth, bitmap.size());
+        partitions->emplace_back(min, max);
+        min = Coordinate(partitionWidth, min.y());
+        max = Coordinate(bitmap[0].size(), bitmap.size());
+        partitions->emplace_back(min, max);
+    }
+    return partitions;
+}
 
 void printPbm(ofstream& out, vector< vector<bool> >& bitmap){
     out << "P1\n";
@@ -196,13 +233,15 @@ vector<BoundingBox> * findBoxesInPartition(vector< vector<bool> >& bitmap,
 }
 
 int main(int argc, const char * argv[]) {
-    numOfThreads = 1;
+    numOfThreads = 4;
     
     if (argc > 1) readInput(argv[1], bitmap);
     else {
         printUsage(cout);
         exit(-1);
     }
+    
+    getPartitions(bitmap, numOfThreads);
     
     Coordinate partitionMax = Coordinate(bitmap[0].size(), bitmap.size());
     vector<BoundingBox> * boundingBoxes = findBoxesInPartition(bitmap, Coordinate(0,0)

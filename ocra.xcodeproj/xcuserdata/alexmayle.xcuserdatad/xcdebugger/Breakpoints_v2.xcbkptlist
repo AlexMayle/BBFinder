@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502845657.34367"
+            timestampString = "502853269.407505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "readInput(const char * filename, vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap)"
             landmarkType = "9">
             <Locations>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502845657.34367"
+            timestampString = "502853269.407505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "readInput(const char * filename, vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap)"
             landmarkType = "9">
          </BreakpointContent>
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502848177.612719"
+            timestampString = "502853269.407505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "makeBox(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; blackPixelLocation, BoundingBox * result, Coordinate partitionMin, Coordinate partitionMax)"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "makeBox(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, const Coordinate&amp; blackPixelLocation, BoundingBox * result, const Coordinate&amp; partitionMin, const Coordinate&amp; partitionMax)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502847932.582334"
+            timestampString = "502853269.407505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "makeBox(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; blackPixelLocation, BoundingBox * result, Coordinate partitionMin, Coordinate partitionMax)"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "makeBox(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, const Coordinate&amp; blackPixelLocation, BoundingBox * result, const Coordinate&amp; partitionMin, const Coordinate&amp; partitionMax)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502845657.34367"
+            timestampString = "502853269.407505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "readInput(const char * filename, vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap)"
             landmarkType = "9">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502845657.34367"
+            timestampString = "502853269.407505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "readInput(const char * filename, vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap)"
             landmarkType = "9">
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502848177.612719"
+            timestampString = "502853269.407505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "main(int argc, const char * argv[])"
             landmarkType = "9">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502848177.612719"
+            timestampString = "502853269.407505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "main(int argc, const char * argv[])"
             landmarkType = "9">
          </BreakpointContent>
@@ -282,12 +282,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502845852.526259"
+            timestampString = "502853269.407505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "findBlackPixel(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; startingPoint, Coordinate * result, vector&lt;BoundingBox&gt;&amp; boxes, Coordinate&amp; partitionMin, Coordinate&amp; partitionMax)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ocra/main.cpp"
+            timestampString = "502853269.407505"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "getPartitions(const vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, int threadExponant)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
