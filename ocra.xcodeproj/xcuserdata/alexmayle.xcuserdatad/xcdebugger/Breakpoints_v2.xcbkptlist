@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502845657.34367"
+            timestampString = "502848177.612719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "makeBox(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; blackPixelLocation, BoundingBox * result)"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "makeBox(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; blackPixelLocation, BoundingBox * result, Coordinate partitionMin, Coordinate partitionMax)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502845657.34367"
+            timestampString = "502847932.582334"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "makeBox(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; blackPixelLocation, BoundingBox * result)"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "makeBox(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; blackPixelLocation, BoundingBox * result, Coordinate partitionMin, Coordinate partitionMax)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,12 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/BoundingBox.cpp"
-            timestampString = "502702000.672893"
+            timestampString = "502848177.612719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "BoundingBox::checkPerimeter(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; lastBlackPixelVisited)"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "BoundingBox::checkPerimeter(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; lastBlackPixelVisited, const Coordinate&amp; partitionMin, const Coordinate&amp; partitionMax)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/BoundingBox.cpp"
-            timestampString = "502702000.672893"
+            timestampString = "502848177.612719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "BoundingBox::checkPerimeter(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; lastBlackPixelVisited)"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "BoundingBox::checkPerimeter(vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; lastBlackPixelVisited, const Coordinate&amp; partitionMin, const Coordinate&amp; partitionMax)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502845657.34367"
+            timestampString = "502848177.612719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "main(int argc, const char * argv[])"
             landmarkType = "9">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/main.cpp"
-            timestampString = "502845657.34367"
+            timestampString = "502848177.612719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "main(int argc, const char * argv[])"
             landmarkType = "9">
          </BreakpointContent>
