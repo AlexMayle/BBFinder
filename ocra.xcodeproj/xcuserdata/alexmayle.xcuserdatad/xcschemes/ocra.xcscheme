@@ -64,7 +64,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "washington.pbm"
+            argument = "scs.pbm"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

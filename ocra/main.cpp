@@ -114,7 +114,7 @@ void readInput(const char * filename, vector< vector<bool> >& bitmap) {
     in >> width;
     in >> height;
     
-    bool boolBuf;
+    //bool boolBuf;
     bitmap.resize(height);
     for (int i = 0; i < height; ++i) {
         bitmap[i].resize(width);
@@ -210,9 +210,10 @@ void makeBox(vector< vector<bool> >& bitmap, const Coordinate& blackPixelLocatio
     *result = boundingBox;
 }
 
-vector<BoundingBox> * findBoxesInPartition(vector< vector<bool> >& bitmap,
-                                         Coordinate partitionMin,
-                                         Coordinate partitionMax) {
+void* findBoxesInPartition(void * partitionPtr) {
+    BoundingBox * partition = static_cast<BoundingBox*>(partitionPtr);
+    Coordinate partitionMin = partition->min();
+    Coordinate partitionMax = partition->max();
     vector<BoundingBox> * boundingBoxes = new vector<BoundingBox>;
     Coordinate startLookingHere, blackPixelLocation;
     BoundingBox box;
@@ -229,7 +230,7 @@ vector<BoundingBox> * findBoxesInPartition(vector< vector<bool> >& bitmap,
             startLookingHere.setY(startLookingHere.y() + 1);
         }
     }
-    return boundingBoxes;
+    return (void*) boundingBoxes;
 }
 
 int main(int argc, const char * argv[]) {
@@ -241,26 +242,34 @@ int main(int argc, const char * argv[]) {
         exit(-1);
     }
     
-    vector<BoundingBox> * partitions = getPartitions(bitmap, numOfThreads);
-    BoundingBox partition = partitions->front();
+    vector<BoundingBox> * partitionBounds = getPartitions(bitmap, numOfThreads);
+    vector<pthread_t> threads;
+    threads.resize(partitionBounds->size());
     
-    vector<BoundingBox> * boundingBoxes = findBoxesInPartition(bitmap, partition.min(),
-                                                               partition.max());
+    for (int i = 0; i < threads.size(); ++i) {
+        pthread_create(&threads[i], NULL, findBoxesInPartition, &(*partitionBounds)[i]);
+    }
     
-    for (auto box : *boundingBoxes) {
-        Coordinate difference = box.max() - box.min();
-        if ((difference.x() + 1) * (difference.y() + 1) >= BOX_VOLUME_THRESHOLD) {
+    vector< vector<BoundingBox>* > boundingBoxes;
+    for (int i = 0; i < threads.size(); ++i) {
+        void ** ptr = new void *;
+        int rc = pthread_join(threads[i], ptr);
+        vector<BoundingBox> * boxes = static_cast<vector<BoundingBox>*>(*ptr);
+        boundingBoxes.push_back(boxes);
+        delete ptr;
+    }
+    delete partitionBounds;
+    
+    for (auto partition : boundingBoxes) {
+        for (auto box : *partition) {
             cout << '(';
             box.min().print();
             cout << ", ";
             box.max().print();
             cout << "), ";
+            box.printToBitmap(bitmap);
         }
-    }
-    cout << endl;
-    
-    for (auto box : *boundingBoxes) {
-        box.printToBitmap(bitmap);
+        delete partition;
     }
     
     cout << endl << "Comparisons: " << checkCount + 2 << " Pixels: " << bitmap[0].size() * bitmap.size() << " Speedup: " << bitmap[0].size() * bitmap.size() / (float)checkCount << endl;
