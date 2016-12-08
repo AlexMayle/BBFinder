@@ -150,7 +150,7 @@ bool findBlackPixel(vector< vector<bool> >& bitmap,
 }
 
 void makeBox(vector< vector<bool> >& bitmap, Coordinate& blackPixelLocation,
-             BoundingBox * result) {
+             BoundingBox * result, Coordinate partitionMin, Coordinate partitionMax) {
     Coordinate newStartingPoint = blackPixelLocation;
     BoundingBox boundingBox = BoundingBox(newStartingPoint, newStartingPoint);
     Coordinate neighbor;
@@ -159,7 +159,8 @@ void makeBox(vector< vector<bool> >& bitmap, Coordinate& blackPixelLocation,
         //boundingBox.expandBoundaries(newStartingPoint);
         cursor = newStartingPoint;
         while (1) {
-            neighbor = cursor.getCardinalNeighbor(bitmap, Coordinate(0, 0), Coordinate(bitmap[0].size() -1, bitmap.size() -1), boundingBox);
+            neighbor = cursor.getCardinalNeighbor(bitmap, partitionMin, partitionMax,
+                                                  boundingBox);
             if (neighbor == cursor) break;
             boundingBox.expandBoundaries(neighbor);
             cursor = neighbor;
@@ -179,7 +180,7 @@ vector<BoundingBox> * findBoxesInPartition(vector< vector<bool> >& bitmap,
     while (findBlackPixel(bitmap, startLookingHere, &blackPixelLocation,
                           *boundingBoxes, partitionMin, partitionMax))
     {
-        makeBox(bitmap, blackPixelLocation, &box);
+        makeBox(bitmap, blackPixelLocation, &box, partitionMin, partitionMax);
         boundingBoxes->push_back(box);
         if (box.max().x() + 1 < bitmap[0].size()) {
             startLookingHere.setX(box.max().x() + 1);

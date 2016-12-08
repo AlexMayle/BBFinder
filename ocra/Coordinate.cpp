@@ -16,7 +16,7 @@ Coordinate Coordinate::getCardinalNeighbor(const vector< vector<bool> >& bitmap,
     int sBound, wBound, eBound;
     
     //  South Bound
-    sBound = partitionMax.y() - mY;
+    sBound = partitionMax.y() - 1 - mY;
     if (sBound > 3) sBound = 3;
     
     //  West Bound
@@ -24,7 +24,7 @@ Coordinate Coordinate::getCardinalNeighbor(const vector< vector<bool> >& bitmap,
     if (wBound > 3) wBound = 3;
     
     //  East Bound
-    eBound = partitionMax.x() - mX;
+    eBound = partitionMax.x() - 1 - mX;
     if (eBound > 3) eBound = 3;
     
     //   X direction
