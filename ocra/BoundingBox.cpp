@@ -33,7 +33,7 @@ const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
             if (bitmap[i][mMax.x()]) {
                 Coordinate blackPixel(mMax.x(), i);
                 //if (blackPixel != lastBlackPixelVisited) {
-                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, Coordinate(0,0), Coordinate(bitmap[0].size() -1, bitmap.size() -1), *this, north, distanceFromLastBlackPixel);
+                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partitionMin, partitionMax, *this, north, distanceFromLastBlackPixel);
                 distanceFromLastBlackPixel = 1;
                     if (blackPixel != neighbor) {
                         this->expandBoundaries(neighbor);
@@ -49,7 +49,7 @@ const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
             if (bitmap[mMax.y()][j]) {
                 Coordinate blackPixel(j, mMax.y());
                 //if (blackPixel != lastBlackPixelVisited) {
-                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, Coordinate(0,0), Coordinate(bitmap[0].size() -1, bitmap.size() -1), *this, west, distanceFromLastBlackPixel);
+                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partitionMin, partitionMax, *this, west, distanceFromLastBlackPixel);
                     if (blackPixel != neighbor) {
                         this->expandBoundaries(neighbor);
                         return neighbor;
@@ -64,7 +64,7 @@ const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
             if (bitmap[i][mMin.x()]) {
                 Coordinate blackPixel(mMin.x(), i);
                 // if (blackPixel != lastBlackPixelVisited) {
-                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, Coordinate(0,0), Coordinate(bitmap[0].size() -1, bitmap.size()-1), *this, north, distanceFromLastBlackPixel);
+                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partitionMin, partitionMax, *this, north, distanceFromLastBlackPixel);
                 distanceFromLastBlackPixel = 1;
                     if (blackPixel != neighbor) {
                         this->expandBoundaries(neighbor);

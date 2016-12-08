@@ -160,7 +160,7 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
         if (nBound > 3) nBound = 3;
         
         //  South Bound
-        sBound = partitionMax.y() - mY;
+        sBound = partitionMax.y() - 1 - mY;
         if (sBound > 3) sBound = 3;
         
         //  West Bound
@@ -168,7 +168,7 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
         if (wBound > 3) wBound = 3;
         
         //  East Bound
-        eBound = partitionMax.x() - mX;
+        eBound = partitionMax.x() - 1 - mX;
         if (eBound > 3) eBound = 3;
     } else {
         //  North Bound
@@ -179,7 +179,7 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
         if (direction == north) {
             sBound = 0 - (nBound - (distance - 1));
         } else {
-            sBound = partitionMax.y() - mY;
+            sBound = partitionMax.y() - 1 - mY;
             if (sBound > 3) sBound = 3;
         }
         
@@ -191,7 +191,7 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
         if (direction == west) {
             eBound =  0 - (wBound - (distance - 1));
         } else {
-            eBound = partitionMax.x() - mX;
+            eBound = partitionMax.x() - 1 - mX;
             if (eBound > 3) eBound = 3;
         }
     }
