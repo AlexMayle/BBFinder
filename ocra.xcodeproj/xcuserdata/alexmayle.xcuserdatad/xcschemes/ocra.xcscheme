@@ -64,7 +64,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "disparate.pbm"
+            argument = "washington.pbm"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

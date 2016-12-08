@@ -233,7 +233,7 @@ vector<BoundingBox> * findBoxesInPartition(vector< vector<bool> >& bitmap,
 }
 
 int main(int argc, const char * argv[]) {
-    numOfThreads = 4;
+    numOfThreads = 1;
     
     if (argc > 1) readInput(argv[1], bitmap);
     else {
@@ -241,11 +241,11 @@ int main(int argc, const char * argv[]) {
         exit(-1);
     }
     
-    getPartitions(bitmap, numOfThreads);
+    vector<BoundingBox> * partitions = getPartitions(bitmap, numOfThreads);
+    BoundingBox partition = partitions->front();
     
-    Coordinate partitionMax = Coordinate(bitmap[0].size(), bitmap.size());
-    vector<BoundingBox> * boundingBoxes = findBoxesInPartition(bitmap, Coordinate(0,0)
-                                                               ,partitionMax);
+    vector<BoundingBox> * boundingBoxes = findBoxesInPartition(bitmap, partition.min(),
+                                                               partition.max());
     
     for (auto box : *boundingBoxes) {
         Coordinate difference = box.max() - box.min();
