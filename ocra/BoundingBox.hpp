@@ -78,12 +78,6 @@ public:
         if (this->mMax.y() < other.mMax.y()) mMax.setY(other.mMax.y());
     }
     
-//    inline bool greedyContains(const Coordinate& pixel) {
-//        bool betweenX = pixel.x() >= mMin.x() - 3 && pixel.x() <= mMax.x() + 3;
-//        bool betweenY = pixel.y() >= mMin.y() - 3 && pixel.y() <= mMax.y() + 3;
-//        return betweenX && betweenY;
-//    }
-    
     void expandBoundaries(const Coordinate& blackPixel);
     
     int checkPerimeter(const vector< vector<bool> >& bitmap,
@@ -94,66 +88,29 @@ public:
                     const Partition * const partition,
                     Coordinate& pixelOnPerimeter);
     
+    int fullExpandRight(const vector< vector<bool> >& bitmap,
+                        const Partition * const partition,
+                        Coordinate& pixelOnPerimeter,
+                        int distanceFromLastBlackPixel);
+    
+    int fullExpandBottom(const vector< vector<bool> >& bitmap,
+                         const Partition * const partition,
+                         Coordinate& pixelOnPerimeter,
+                         int distanceFromLastBlackPixel);
+    
+    int fullExpandLeft(const vector< vector<bool> >& bitmap,
+                       const Partition * const partition,
+                       Coordinate& pixelOnPerimeter,
+                       int distanceFromLastBlackPixel);
+    
+    int fullExpand(const vector< vector<bool> >& bitmap,
+                   const Partition * const partition,
+                   Coordinate& pixelOnPerimeter,
+                   const Direction direction,
+                   int distanceFromLastBlackPixel);
+    
     void printToBitmap(vector< vector<bool> >& bitmap) const;
     void eraseFromBitmap(vector< vector<bool> >& bitmap) const;
-
-//    const Coordinate checkPerimeterFinal(vector< vector<bool> >& bitmap,
-//                                                 Coordinate& lastBlackPixelVisited,
-//                                                 const Coordinate& partitionMin,
-//                                                 const Coordinate& partitionMax) {
-//        //  +X direction
-//        int distanceFromLastBlackPixel = 0;
-//        for (int i = mMax.y() - 1; i >= mMin.y(); --i) {
-//            ++checkCount;
-//            if (bitmap[i][mMax.x()]) {
-//                Coordinate blackPixel(mMax.x(), i);
-//                //if (blackPixel != lastBlackPixelVisited) {
-//                Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partitionMin, partitionMax, *this, north, distanceFromLastBlackPixel);
-//                distanceFromLastBlackPixel = 1;
-//                if (blackPixel != neighbor) {
-//                    this->erase
-//                    this->expandBoundaries(neighbor);
-//                    
-//                    return neighbor;
-//                }
-//                //}
-//            } else ++distanceFromLastBlackPixel;
-//        }
-//        distanceFromLastBlackPixel = 0;
-//        //  +Y direction
-//        for (int j = mMax.x(); j >= mMin.x(); --j) {
-//            ++checkCount;
-//            if (bitmap[mMax.y()][j]) {
-//                Coordinate blackPixel(j, mMax.y());
-//                //if (blackPixel != lastBlackPixelVisited) {
-//                Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partitionMin, partitionMax, *this, west, distanceFromLastBlackPixel);
-//                if (blackPixel != neighbor) {
-//                    this->expandBoundaries(neighbor);
-//                    return neighbor;
-//                }
-//                // }
-//            } else ++distanceFromLastBlackPixel;
-//        }
-//        //  -X direction
-//        distanceFromLastBlackPixel = 0;
-//        for (int i = mMax.y() - 1; i >= mMin.y(); --i) {
-//            ++checkCount;
-//            if (bitmap[i][mMin.x()]) {
-//                Coordinate blackPixel(mMin.x(), i);
-//                // if (blackPixel != lastBlackPixelVisited) {
-//                Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partitionMin, partitionMax, *this, north, distanceFromLastBlackPixel);
-//                distanceFromLastBlackPixel = 1;
-//                if (blackPixel != neighbor) {
-//                    this->expandBoundaries(neighbor);
-//                    return neighbor;
-//                }
-//                // }
-//            } else ++distanceFromLastBlackPixel;
-//        }
-//        
-//        return lastBlackPixelVisited;
-//    }
-
 };
 
 #endif /* BoundingBox_hpp */
