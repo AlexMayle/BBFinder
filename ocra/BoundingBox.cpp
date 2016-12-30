@@ -23,7 +23,7 @@ void BoundingBox::expandBoundaries(Coordinate& blackPixel) {
     //      mMin.setX(blackPixel.y());
 }
 
-const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
+int BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
                                              Coordinate& lastBlackPixelVisited,
                                              const Partition * const partition) {
         //  +X direction
@@ -37,7 +37,8 @@ const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
                 distanceFromLastBlackPixel = 1;
                     if (blackPixel != neighbor) {
                         this->expandBoundaries(neighbor);
-                        return neighbor;
+                        lastBlackPixelVisited = neighbor;
+                        return 0;
                     }
                 //}
             } else ++distanceFromLastBlackPixel;
@@ -52,7 +53,8 @@ const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
                     Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partition, *this, west, distanceFromLastBlackPixel);
                     if (blackPixel != neighbor) {
                         this->expandBoundaries(neighbor);
-                        return neighbor;
+                        lastBlackPixelVisited = neighbor;
+                        return 0;
                     }
                 // }
             } else ++distanceFromLastBlackPixel;
@@ -68,7 +70,8 @@ const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
                 distanceFromLastBlackPixel = 1;
                     if (blackPixel != neighbor) {
                         this->expandBoundaries(neighbor);
-                        return neighbor;
+                        lastBlackPixelVisited = neighbor;
+                        return 0;
                     }
                 // }
             } else ++distanceFromLastBlackPixel;
@@ -115,8 +118,64 @@ const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
 //        }
 //    }
     
-    return lastBlackPixelVisited;
+    return -1;
+}
+
+int BoundingBox::quickExpand(const vector< vector<bool> >& bitmap,
+                             const Partition * const partition,
+                             Coordinate& pixelOnPerimeter) {
+    
+    int sBound, wBound, eBound;
+    
+    //  South Bound
+    sBound = partition->max().y() - 1 - pixelOnPerimeter.y();
+    if (sBound > 3) sBound = 3;
+    
+    //  West Bound
+    wBound = pixelOnPerimeter.x() - partition->min().x();
+    if (wBound > 3) wBound = 3;
+    
+    //  East Bound
+    eBound = partition->max().x() - 1 - pixelOnPerimeter.x();
+    if (eBound > 3) eBound = 3;
+    
+    //   X direction
+    if (pixelOnPerimeter.x() == mMax.x()) {
+        for (int j = pixelOnPerimeter.x() + eBound; j != pixelOnPerimeter.x(); --j) {
+            ++checkCount;
+            if (bitmap[pixelOnPerimeter.y()][j]) {
+                pixelOnPerimeter.setX(j);
+                this->expandBoundaries(pixelOnPerimeter);
+                return 0;
+            }
+        }
     }
+    
+    // Y direction
+    if (pixelOnPerimeter.y() == mMax.y()) {
+        for (int i = pixelOnPerimeter.y() + sBound; i != pixelOnPerimeter.y(); --i) {
+            ++checkCount;
+            if (bitmap[i][pixelOnPerimeter.x()]) {
+                pixelOnPerimeter.setY(i);
+                this->expandBoundaries(pixelOnPerimeter);
+                return 0;
+            }
+        }
+    }
+    
+    if (pixelOnPerimeter.x() == mMin.x()) {
+        for (int j = pixelOnPerimeter.x() - wBound; j != pixelOnPerimeter.x(); ++j) {
+            ++checkCount;
+            if (bitmap[pixelOnPerimeter.x()][j]) {
+                pixelOnPerimeter.setX(j);
+                this->expandBoundaries(pixelOnPerimeter);
+                return 0;
+            }
+        }
+    }
+    
+    return -1;
+}
 
 void BoundingBox::printToBitmap(vector< vector<bool> >& bitmap) const {
     for (int i = mMin.y(); i <= mMax.y(); ++i) {

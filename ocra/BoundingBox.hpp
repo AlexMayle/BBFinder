@@ -55,6 +55,12 @@ public:
         return betweenX && betweenY;
     }
     
+    inline bool contains(const int x, const int y) const {
+        bool betweenX = x >= mMin.x() && x <= mMax.x();
+        bool betweenY = y >= mMin.y() && x <= mMax.y();
+        return betweenX && betweenY;
+    }
+    
     bool contains(const BoundingBox& box) {
         Coordinate topRight(box.max().x(), box.min().y());
         Coordinate bottomLeft(box.min().x(), box.max().y());
@@ -80,9 +86,13 @@ public:
     
     void expandBoundaries(Coordinate& blackPixel);
     
-    const Coordinate checkPerimeter(vector< vector<bool> >& bitmap,
+    int checkPerimeter(vector< vector<bool> >& bitmap,
                                     Coordinate& lastBlackPixelVisited,
                                     const Partition * const partition);
+    
+    int quickExpand(const vector< vector<bool> >& bitmap,
+                    const Partition * const partition,
+                    Coordinate& pixelOnPerimeter);
     
     void printToBitmap(vector< vector<bool> >& bitmap) const;
     void eraseFromBitmap(vector< vector<bool> >& bitmap) const;

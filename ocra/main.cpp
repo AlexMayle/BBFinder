@@ -150,6 +150,15 @@ void printUsage(ostream& out) {
     out << "Usage: filename and number of threads required in that order.\n";
 }
 
+int belongsToBox(vector<BoundingBox>& boxes, int x, int y) {
+    for (BoundingBox box : boxes) {
+        if (box.contains(x, y)) {
+            return box.max().x();
+        }
+    }
+    return -1;
+}
+
 //  Places the first black pixel it finds, excluding those contained in
 //  any existing bounding boxes, into result. The algorithm starts looking
 //  at startingPoint and checks the region within bitmap bound by partitionMin
@@ -172,23 +181,19 @@ bool findBlackPixel(vector< vector<bool> >& bitmap,
     
     int x = startingPoint.x();
     for (int y = startingPoint.y(); y < partition->max().y(); ++y) {
-        while (x < partition->max().x()) {
+        for (x; x < partition->max().x(); ++x) {
             ++checkCount;
+            
             if (bitmap[y][x]) {
-                bool belongsToExistingBox = false;
-                for (BoundingBox box : boxes) {
-                    if (box.contains(Coordinate(x, y))) {
-                        belongsToExistingBox = true;
-                        x = box.max().x();
-                        break;
-                    }
-                }
-                if (!belongsToExistingBox) {
+                int nextXCoordinate = belongsToBox(boxes, x, y);
+                
+                if (nextXCoordinate == -1) {
                     *result = Coordinate(x, y);
                     return true;
+                } else {
+                    x = nextXCoordinate + 3;
                 }
             }
-            ++x;
         }
         x = partition->min().x();
     }
@@ -204,25 +209,15 @@ bool findBlackPixel(vector< vector<bool> >& bitmap,
 //  result:                 The resulting BoundingBox object
 //  partition:              Partition object representing a section of the image
 //
-void makeBox(vector< vector<bool> >& bitmap, const Coordinate& blackPixelLocation,
-             BoundingBox * result, const Partition * const partition) {
-    Coordinate newStartingPoint = blackPixelLocation;
-    BoundingBox boundingBox = BoundingBox(newStartingPoint, newStartingPoint);
-    Coordinate neighbor;
-    Coordinate cursor;
+void makeBox(vector< vector<bool> >& bitmap, const Partition * const partition,
+             const Coordinate& startingPoint, BoundingBox * result) {
+    
+    BoundingBox boundingBox = BoundingBox(startingPoint, startingPoint);
+    Coordinate pixel = boundingBox.min();
+    
     do {
-        //boundingBox.expandBoundaries(newStartingPoint);
-        cursor = newStartingPoint;
-        while (1) {
-            neighbor = cursor.getCardinalNeighbor(bitmap, partition,
-                                                  boundingBox);
-            if (neighbor == cursor) break;
-            boundingBox.expandBoundaries(neighbor);
-            cursor = neighbor;
-        }
-        newStartingPoint = boundingBox.checkPerimeter(bitmap, cursor,
-                                                      partition);
-    } while (cursor != newStartingPoint);
+        while (!boundingBox.quickExpand(bitmap, partition, pixel));
+    } while (!boundingBox.checkPerimeter(bitmap, pixel, partition));
     
     *result = boundingBox;
 }
@@ -240,11 +235,13 @@ void* findBoxesInPartition(void * partitionPtr) {
     vector<BoundingBox> * boundingBoxes = new vector<BoundingBox>;
     Coordinate blackPixelLocation;
     BoundingBox box;
+    
     while (findBlackPixel(bitmap, startLookingHere, &blackPixelLocation,
                           *boundingBoxes, partition))
     {
-        makeBox(bitmap, blackPixelLocation, &box, partition);
+        makeBox(bitmap, partition, blackPixelLocation, &box);
         boundingBoxes->push_back(box);
+        
         if (box.max().x() + 1 < partition->max().x()) {
             startLookingHere.setX(box.max().x() + 1);
             startLookingHere.setY(box.min().y());
