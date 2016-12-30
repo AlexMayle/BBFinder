@@ -231,46 +231,24 @@ void makeBox(vector< vector<bool> >& bitmap, const Partition * const partition,
 //
 void* findBoxesInPartition(void * partitionPtr) {
     const Partition * const partition = static_cast<Partition*>(partitionPtr);
-    Coordinate startLookingHere = partition->min();
     vector<BoundingBox> * boundingBoxes = new vector<BoundingBox>;
+    Coordinate startLookingHere = partition->min();
     Coordinate blackPixelLocation;
-    BoundingBox box;
+    BoundingBox currentBox;
     
     while (findBlackPixel(bitmap, startLookingHere, &blackPixelLocation,
-                          *boundingBoxes, partition))
-    {
-        makeBox(bitmap, partition, blackPixelLocation, &box);
-        boundingBoxes->push_back(box);
+                          *boundingBoxes, partition)) {
+        makeBox(bitmap, partition, blackPixelLocation, &currentBox);
+        boundingBoxes->push_back(currentBox);
         
-        if (box.max().x() + 1 < partition->max().x()) {
-            startLookingHere.setX(box.max().x() + 1);
-            startLookingHere.setY(box.min().y());
+        if (currentBox.max().x() + 1 < partition->max().x()) {
+            startLookingHere.setX(currentBox.max().x() + 1);
+            startLookingHere.setY(currentBox.min().y());
         } else {
             startLookingHere.setX(partition->min().x());
             startLookingHere.setY(blackPixelLocation.y());
         }
     }
-    
-    bool done;
-    while (1) {
-        done = true;
-        for (auto bBox : *boundingBoxes) {
-            for (vector<BoundingBox>::iterator  it2 = boundingBoxes->begin();
-                 it2 != boundingBoxes->end(); ++it2) {
-                if (!(box == *it2)) {
-                    if (bBox.contains(*it2)) {
-                        bBox.merge(*it2);
-                        boundingBoxes->erase(it2);
-                        done = false;
-                        break;
-                    }
-                }
-            }
-            if (!done) break;
-        }
-        if (done) break;
-    }
-    
     return (void*) boundingBoxes;
 }
 
