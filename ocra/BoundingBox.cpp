@@ -26,23 +26,22 @@ void BoundingBox::expandBoundaries(const Coordinate& blackPixel) {
 int BoundingBox::checkPerimeter(const vector< vector<bool> >& bitmap,
                                 Coordinate& lastBlackPixelVisited,
                                 const Partition * const partition) {
+    
         //  +X direction
     int distanceFromLastBlackPixel = 0;
-        for (int i = mMax.y() - 1; i >= mMin.y(); --i) {
-            ++checkCount;
-            if (bitmap[i][mMax.x()]) {
-                Coordinate blackPixel(mMax.x(), i);
-                //if (blackPixel != lastBlackPixelVisited) {
-                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partition, *this, north, distanceFromLastBlackPixel);
-                distanceFromLastBlackPixel = 1;
-                    if (blackPixel != neighbor) {
-                        this->expandBoundaries(neighbor);
-                        lastBlackPixelVisited = neighbor;
-                        return 0;
-                    }
-                //}
-            } else ++distanceFromLastBlackPixel;
-        }
+    for (int i = mMax.y() - 1; i >= mMin.y(); --i) {
+        ++checkCount;
+        if (bitmap[i][mMax.x()]) {
+            Coordinate blackPixel(mMax.x(), i);
+            Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partition, *this, north, distanceFromLastBlackPixel);
+            distanceFromLastBlackPixel = 1;
+            if (blackPixel != neighbor) {
+                this->expandBoundaries(neighbor);
+                lastBlackPixelVisited = neighbor;
+                return 0;
+            }
+        } else ++distanceFromLastBlackPixel;
+    }
     distanceFromLastBlackPixel = 0;
         //  +Y direction
         for (int j = mMax.x(); j >= mMin.x(); --j) {
@@ -76,47 +75,6 @@ int BoundingBox::checkPerimeter(const vector< vector<bool> >& bitmap,
                 // }
             } else ++distanceFromLastBlackPixel;
         }
-    
-//    //  +X direction
-//    for (int i = mMax.y() - 1; i >= mMin.y(); --i) {
-//        ++checkCount;
-//        if (bitmap[i][mMax.x()]) {
-//            Coordinate blackPixel(mMax.x(), i);
-//            //if (blackPixel != lastBlackPixelVisited) {
-//                Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, Coordinate(0,0), Coordinate(bitmap[0].size() -1, bitmap.size() -1), *this);
-//                if (blackPixel != neighbor) {
-//                    this->expandBoundaries(neighbor);
-//                    return neighbor;
-//                }
-//            //}
-//        }
-//    }
-//    //  +Y direction
-//    for (int j = mMax.x(); j >= mMin.x(); --j) {
-//        if (bitmap[mMax.y()][j]) {
-//            Coordinate blackPixel(j, mMax.y());
-//            //if (blackPixel != lastBlackPixelVisited) {
-//                Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, Coordinate(0,0), Coordinate(bitmap[0].size() -1, bitmap.size() -1), *this);
-//                if (blackPixel != neighbor) {
-//                    this->expandBoundaries(neighbor);
-//                    return neighbor;
-//                }
-//            // }
-//        }
-//    }
-//    //  -X direction
-//    for (int i = mMax.y() - 1; i >= mMin.y(); --i) {
-//        if (bitmap[i][mMin.x()]) {
-//            Coordinate blackPixel(mMin.x(), i);
-//            // if (blackPixel != lastBlackPixelVisited) {
-//                Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, Coordinate(0,0), Coordinate(bitmap[0].size() -1, bitmap.size()-1), *this);
-//                if (blackPixel != neighbor) {
-//                    this->expandBoundaries(neighbor);
-//                    return neighbor;
-//                }
-//            // }
-//        }
-//    }
     
     return -1;
 }

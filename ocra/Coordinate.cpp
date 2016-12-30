@@ -150,7 +150,7 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
                                       const Partition * const partition,
                                       const BoundingBox& boundingBox,
                                       const Direction direction,
-                                       int distance) const {
+                                      int distance) const {
     int nBound, sBound, wBound, eBound;
     if (distance > 3) distance = 3;
     if (distance == 0) {
@@ -195,22 +195,6 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
         }
     }
     
-//    //  North Bound
-//    nBound = mY - partitionMin.y();
-//    if (nBound > 3) nBound = 3;
-//    
-//    //  South Bound
-//    sBound = partitionMax.y() - mY;
-//    if (sBound > 3) sBound = 3;
-//    
-//    //  West Bound
-//    wBound = mX - partitionMin.x();
-//    if (wBound > 3) wBound = 3;
-//    
-//    //  East Bound
-//    eBound = partitionMax.x() - mX;
-//    if (eBound > 3) eBound = 3;
-    
     //   +X direction
     if (mX == boundingBox.max().x()) {
         for (int y = mY - nBound; y <= mY + sBound; ++y) {
@@ -220,12 +204,6 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
             }
         }
     }
-//    if (mX == boundingBox.max().x()) {
-//        for (int j = mX + eBound; j != mX; --j) {
-//            ++checkCount;
-//            if (bitmap[mY][j]) return Coordinate(j, mY);
-//        }
-//    }
     
     // +Y direction
     if (mY == boundingBox.max().y()) {
@@ -236,12 +214,6 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
             }
         }
     }
-//    if (mY == boundingBox.max().y()) {
-//        ++checkCount;
-//        for (int i = mY + sBound; i != mY; --i) {
-//            if (bitmap[i][mX]) return Coordinate(mX, i);
-//        }
-//    }
     
     //  -X direction
     if (mX == boundingBox.min().x()) {
@@ -252,12 +224,6 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
             }
         }
     }
-//    if (mX == boundingBox.min().x()) {
-//        ++checkCount;
-//        for (int j = mX - wBound; j != mX; ++j) {
-//            if (bitmap[mY][j]) return Coordinate(j, mY);
-//        }
-//    }
     
     return *this;
 }
