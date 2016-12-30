@@ -7,6 +7,7 @@
 //
 
 #include "BoundingBox.hpp"
+#include "Partition.hpp"
     
 void BoundingBox::expandBoundaries(Coordinate& blackPixel) {
     Coordinate difference = blackPixel - this->mMax;
@@ -24,8 +25,7 @@ void BoundingBox::expandBoundaries(Coordinate& blackPixel) {
 
 const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
                                              Coordinate& lastBlackPixelVisited,
-                                             const Coordinate& partitionMin,
-                                             const Coordinate& partitionMax) {
+                                             const Partition * const partition) {
         //  +X direction
     int distanceFromLastBlackPixel = 0;
         for (int i = mMax.y() - 1; i >= mMin.y(); --i) {
@@ -33,7 +33,7 @@ const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
             if (bitmap[i][mMax.x()]) {
                 Coordinate blackPixel(mMax.x(), i);
                 //if (blackPixel != lastBlackPixelVisited) {
-                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partitionMin, partitionMax, *this, north, distanceFromLastBlackPixel);
+                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partition, *this, north, distanceFromLastBlackPixel);
                 distanceFromLastBlackPixel = 1;
                     if (blackPixel != neighbor) {
                         this->expandBoundaries(neighbor);
@@ -49,7 +49,7 @@ const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
             if (bitmap[mMax.y()][j]) {
                 Coordinate blackPixel(j, mMax.y());
                 //if (blackPixel != lastBlackPixelVisited) {
-                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partitionMin, partitionMax, *this, west, distanceFromLastBlackPixel);
+                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partition, *this, west, distanceFromLastBlackPixel);
                     if (blackPixel != neighbor) {
                         this->expandBoundaries(neighbor);
                         return neighbor;
@@ -64,7 +64,7 @@ const Coordinate BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
             if (bitmap[i][mMin.x()]) {
                 Coordinate blackPixel(mMin.x(), i);
                 // if (blackPixel != lastBlackPixelVisited) {
-                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partitionMin, partitionMax, *this, north, distanceFromLastBlackPixel);
+                    Coordinate neighbor = blackPixel.getAnyNeighbor(bitmap, partition, *this, north, distanceFromLastBlackPixel);
                 distanceFromLastBlackPixel = 1;
                     if (blackPixel != neighbor) {
                         this->expandBoundaries(neighbor);

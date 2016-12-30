@@ -14,23 +14,26 @@
 #include <vector>
 #include <pthread.h>
 #include <sys/types.h>
-#include <math.h>
 
 #include "Coordinate.hpp"
 #include "BoundingBox.hpp"
+#include "Partition.hpp"
 using namespace std;
 
 int checkCount = 0;
 vector< vector<bool> > bitmap;
 static unsigned int numOfThreads;
-static const unsigned int BOX_VOLUME_THRESHOLD = 1;
+static unsigned int BOX_VOLUME_THRESHOLD = 100;
 const char * OUTPUT_FILE_SUFFIX = ".new";
 
 void printHello() {
     cout << "IMPORTANT: There are binary pbm files (start with P4) and \n"
-         << "ASCII pbm files (start with P1). Reading in binary proved difficult\n"
+         << "ASCII pbm files (start with P1). Reading in binary proved difficult and I must study for finals\n"
          << "so I went with the ASCII. To facilitate grading I've included\n"
          << "several ASCII pbm files from small ones to large complicated images.\n"
+         << "Some of the included images are small, so you may want to turn down the\n"
+         << "box volume threshold by providing a third argument. It defaults to 100\n"
+         << "Output file can be found in the same folder as the input\n "
          << "Other than that, everything, including the pthreads is working well.\n";
 }
 
@@ -45,7 +48,12 @@ vector<BoundingBox> * getPartitions(const vector< vector<bool> >& bitmap,
         return partitions;
     } else {
         size_t xPartitions = 2;
-        size_t yPartitions = pow(2, threadExponant -1);
+        size_t yPartitions = 2;
+        int counter = threadExponant - 1;
+        while (counter != 0) {
+            yPartitions = yPartitions * 2;
+            --counter;
+        }
         size_t partitionWidth = bitmap[0].size() / xPartitions;
         size_t partitionHeight = bitmap.size() / yPartitions;
         size_t croppedPartitionWidth = bitmap[0].size() % partitionWidth;
@@ -160,12 +168,11 @@ bool findBlackPixel(vector< vector<bool> >& bitmap,
                     Coordinate& startingPoint,
                     Coordinate * result,
                     vector<BoundingBox>& boxes,
-                    Coordinate& partitionMin,
-                    Coordinate& partitionMax) {
+                    const Partition * const partition) {
     
     int x = startingPoint.x();
-    for (int y = startingPoint.y(); y < partitionMax.y(); ++y) {
-        while (x < partitionMax.x()) {
+    for (int y = startingPoint.y(); y < partition->max().y(); ++y) {
+        while (x < partition->max().x()) {
             ++checkCount;
             if (bitmap[y][x]) {
                 bool belongsToExistingBox = false;
@@ -183,13 +190,22 @@ bool findBlackPixel(vector< vector<bool> >& bitmap,
             }
             ++x;
         }
-        x = partitionMin.x();
+        x = partition->min().x();
     }
     return false;
 }
 
+//  Grows a BoundingBox object starting from blackPixelLocation to its
+//  maximum size within partition on the 2D array bitmap. The resulting
+//  BoundingBox is assigned to the result argument
+//
+//  bitmap:                 2D array representing the image
+//  blackPixelLocation:     start growing the box from this pixel
+//  result:                 The resulting BoundingBox object
+//  partition:              Partition object representing a section of the image
+//
 void makeBox(vector< vector<bool> >& bitmap, const Coordinate& blackPixelLocation,
-             BoundingBox * result, const Coordinate& partitionMin, const Coordinate& partitionMax) {
+             BoundingBox * result, const Partition * const partition) {
     Coordinate newStartingPoint = blackPixelLocation;
     BoundingBox boundingBox = BoundingBox(newStartingPoint, newStartingPoint);
     Coordinate neighbor;
@@ -198,38 +214,42 @@ void makeBox(vector< vector<bool> >& bitmap, const Coordinate& blackPixelLocatio
         //boundingBox.expandBoundaries(newStartingPoint);
         cursor = newStartingPoint;
         while (1) {
-            neighbor = cursor.getCardinalNeighbor(bitmap, partitionMin, partitionMax,
+            neighbor = cursor.getCardinalNeighbor(bitmap, partition,
                                                   boundingBox);
             if (neighbor == cursor) break;
             boundingBox.expandBoundaries(neighbor);
             cursor = neighbor;
         }
         newStartingPoint = boundingBox.checkPerimeter(bitmap, cursor,
-                                                      partitionMin,
-                                                      partitionMax);
+                                                      partition);
     } while (cursor != newStartingPoint);
     
     *result = boundingBox;
 }
 
+//  Finds all BoundingBox objects within a partition and returns a pointer
+//  to a vector containing such boxes
+//
+//  partitionPtr:   A pointer to the partition to search within
+//
+//  returns:        A pointer to a vector of BoundingBox objects
+//
 void* findBoxesInPartition(void * partitionPtr) {
-    BoundingBox * partition = static_cast<BoundingBox*>(partitionPtr);
-    Coordinate partitionMin = partition->min();
-    Coordinate partitionMax = partition->max();
-    Coordinate startLookingHere = partitionMin;
+    const Partition * const partition = static_cast<Partition*>(partitionPtr);
+    Coordinate startLookingHere = partition->min();
     vector<BoundingBox> * boundingBoxes = new vector<BoundingBox>;
     Coordinate blackPixelLocation;
     BoundingBox box;
     while (findBlackPixel(bitmap, startLookingHere, &blackPixelLocation,
-                          *boundingBoxes, partitionMin, partitionMax))
+                          *boundingBoxes, partition))
     {
-        makeBox(bitmap, blackPixelLocation, &box, partitionMin, partitionMax);
+        makeBox(bitmap, blackPixelLocation, &box, partition);
         boundingBoxes->push_back(box);
-        if (box.max().x() + 1 < partitionMax.x()) {
+        if (box.max().x() + 1 < partition->max().x()) {
             startLookingHere.setX(box.max().x() + 1);
             startLookingHere.setY(box.min().y());
         } else {
-            startLookingHere.setX(partitionMin.x());
+            startLookingHere.setX(partition->min().x());
             startLookingHere.setY(blackPixelLocation.y());
         }
     }
@@ -274,6 +294,14 @@ int main(int argc, const char * argv[]) {
         printUsage(cout);
         exit(-1);
     }
+    if (argc > 3) {
+        {
+            const char * tmp;
+            tmp = argv[3];
+            stringstream ss(tmp);
+            ss >> BOX_VOLUME_THRESHOLD;
+        }
+    }
     
     vector<BoundingBox> * partitionBounds = getPartitions(bitmap, numOfThreads);
     vector<pthread_t> threads;
@@ -293,42 +321,44 @@ int main(int argc, const char * argv[]) {
     }
     delete partitionBounds;
     
-    Coordinate tmp(0,0);
-    Coordinate tmp2(0,0);
-    Coordinate tmp3(0,0);
-    for (auto partition : boundingBoxes) {
-        for (auto it = partition->begin(); it != partition->end(); ++it) {
-            while (1) {
-                tmp3 = it->checkPerimeter(bitmap, tmp2, tmp, Coordinate(bitmap[0].size(), bitmap.size()));
-                if (tmp3 == tmp2) break;
-                else tmp2 = tmp3;
-            }
-        }
-    }
-    
-    bool done;
-    while (1) {
-        done = true;
-        for (auto partition : boundingBoxes) {
-            for (auto box : *partition) {
-                for (auto partition2 : boundingBoxes) {
-                    for (auto it = partition2->begin(); it != partition2->end(); ++it){
-                        if (!(box == *it)) {
-                            if (box.contains(*it)) {
-                                box.merge(*it);
-                                partition2->erase(it);
-                                done = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (!done) break;
-                }
-                if (!done) break;
-            }
-            if (!done) break;
-        }
-        if (done) break;
+    if (numOfThreads != 0) {
+//        Coordinate tmp(0,0);
+//        Coordinate tmp2(0,0);
+//        Coordinate tmp3(0,0);
+//        for (auto partition : boundingBoxes) {
+//            for (auto it = partition->begin(); it != partition->end(); ++it) {
+//                while (1) {
+//                    tmp3 = it->checkPerimeter(bitmap, tmp2, tmp, Coordinate(bitmap[0].size(), bitmap.size()));
+//                    if (tmp3 == tmp2) break;
+//                    else tmp2 = tmp3;
+//                }
+//            }
+//        }
+//        
+//        bool done;
+//        while (1) {
+//            done = true;
+//            for (auto partition : boundingBoxes) {
+//                for (auto box : *partition) {
+//                    for (auto partition2 : boundingBoxes) {
+//                        for (auto it = partition2->begin(); it != partition2->end(); ++it){
+//                            if (!(box == *it)) {
+//                                if (box.contains(*it)) {
+//                                    box.merge(*it);
+//                                    partition2->erase(it);
+//                                    done = false;
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                        if (!done) break;
+//                    }
+//                    if (!done) break;
+//                }
+//                if (!done) break;
+//            }
+//            if (done) break;
+//        }
     }
     
     cout << endl << "Box coordinates: ";
@@ -353,4 +383,5 @@ int main(int argc, const char * argv[]) {
     strcat(outputFileName, OUTPUT_FILE_SUFFIX);
     ofstream out(outputFileName);
     printPbm(out, bitmap);
+    
 }

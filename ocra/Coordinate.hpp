@@ -17,6 +17,7 @@ using namespace std;
 extern int checkCount;
 
 class BoundingBox;
+class Partition;
 
 enum Direction {
     north = 1,
@@ -74,13 +75,11 @@ public:
     }
     
     Coordinate getCardinalNeighbor(const vector< vector<bool> >& bitmap,
-                                   const Coordinate& partitionMin,
-                                   const Coordinate& partitionMax,
+                                   const Partition * const partition,
                                    const BoundingBox& boundingBox) const;
     
     Coordinate getAnyNeighbor(const vector< vector<bool> >& bitmap,
-                              const Coordinate& partitionMin,
-                              const Coordinate& partitionMax,
+                              const Partition * const partition,
                               const BoundingBox& boundingBox,
                               const Direction direction,
                                int distance) const;

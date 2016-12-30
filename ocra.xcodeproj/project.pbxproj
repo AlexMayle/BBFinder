@@ -10,6 +10,7 @@
 		604A3C001DF27F4400231D17 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 604A3BFF1DF27F4400231D17 /* main.cpp */; };
 		604A3C081DF288A900231D17 /* Coordinate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 604A3C061DF288A900231D17 /* Coordinate.cpp */; };
 		604A3C0B1DF28DDB00231D17 /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 604A3C091DF28DDB00231D17 /* BoundingBox.cpp */; };
+		6054F37F1E15B69D00CBD6C4 /* Partition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6054F37D1E15B69D00CBD6C4 /* Partition.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,8 @@
 		604A3C071DF288A900231D17 /* Coordinate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Coordinate.hpp; sourceTree = "<group>"; };
 		604A3C091DF28DDB00231D17 /* BoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingBox.cpp; sourceTree = "<group>"; };
 		604A3C0A1DF28DDB00231D17 /* BoundingBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BoundingBox.hpp; sourceTree = "<group>"; };
+		6054F37D1E15B69D00CBD6C4 /* Partition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Partition.cpp; sourceTree = "<group>"; };
+		6054F37E1E15B69D00CBD6C4 /* Partition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Partition.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,8 @@
 				604A3C071DF288A900231D17 /* Coordinate.hpp */,
 				604A3C091DF28DDB00231D17 /* BoundingBox.cpp */,
 				604A3C0A1DF28DDB00231D17 /* BoundingBox.hpp */,
+				6054F37D1E15B69D00CBD6C4 /* Partition.cpp */,
+				6054F37E1E15B69D00CBD6C4 /* Partition.hpp */,
 			);
 			path = ocra;
 			sourceTree = "<group>";
@@ -129,6 +134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6054F37F1E15B69D00CBD6C4 /* Partition.cpp in Sources */,
 				604A3C0B1DF28DDB00231D17 /* BoundingBox.cpp in Sources */,
 				604A3C001DF27F4400231D17 /* main.cpp in Sources */,
 				604A3C081DF288A900231D17 /* Coordinate.cpp in Sources */,
@@ -258,6 +264,7 @@
 				604A3C051DF27F4400231D17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

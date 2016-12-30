@@ -8,23 +8,23 @@
 
 #include "Coordinate.hpp"
 #include "BoundingBox.hpp"
+#include "Partition.hpp"
 
 Coordinate Coordinate::getCardinalNeighbor(const vector< vector<bool> >& bitmap,
-                                           const Coordinate& partitionMin,
-                                           const Coordinate& partitionMax,
+                                           const Partition * const partition,
                                            const BoundingBox& boundingBox) const {
     int sBound, wBound, eBound;
     
     //  South Bound
-    sBound = partitionMax.y() - 1 - mY;
+    sBound = partition->max().y() - 1 - mY;
     if (sBound > 3) sBound = 3;
     
     //  West Bound
-    wBound = mX - partitionMin.x();
+    wBound = mX - partition->min().x();
     if (wBound > 3) wBound = 3;
     
     //  East Bound
-    eBound = partitionMax.x() - 1 - mX;
+    eBound = partition->max().x() - 1 - mX;
     if (eBound > 3) eBound = 3;
     
     //   X direction
@@ -147,8 +147,7 @@ Coordinate Coordinate::getCardinalNeighbor(const vector< vector<bool> >& bitmap,
 }
 
 Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
-                                      const Coordinate& partitionMin,
-                                      const Coordinate& partitionMax,
+                                      const Partition * const partition,
                                       const BoundingBox& boundingBox,
                                       const Direction direction,
                                        int distance) const {
@@ -156,42 +155,42 @@ Coordinate Coordinate::getAnyNeighbor(const vector< vector<bool> >& bitmap,
     if (distance > 3) distance = 3;
     if (distance == 0) {
         //  North Bound
-        nBound = mY - partitionMin.y();
+        nBound = mY - partition->min().y();
         if (nBound > 3) nBound = 3;
         
         //  South Bound
-        sBound = partitionMax.y() - 1 - mY;
+        sBound = partition->max().y() - 1 - mY;
         if (sBound > 3) sBound = 3;
         
         //  West Bound
-        wBound = mX - partitionMin.x();
+        wBound = mX - partition->min().x();
         if (wBound > 3) wBound = 3;
         
         //  East Bound
-        eBound = partitionMax.x() - 1 - mX;
+        eBound = partition->max().x() - 1 - mX;
         if (eBound > 3) eBound = 3;
     } else {
         //  North Bound
-        nBound = mY - partitionMin.y();
+        nBound = mY - partition->min().y();
         if (nBound > 3) nBound = 3;
         
         //  South Bound
         if (direction == north) {
             sBound = 0 - (nBound - (distance - 1));
         } else {
-            sBound = partitionMax.y() - 1 - mY;
+            sBound = partition->max().y() - 1 - mY;
             if (sBound > 3) sBound = 3;
         }
         
         //  West Bound
-        wBound = mX - partitionMin.x();
+        wBound = mX - partition->min().x();
         if (wBound > 3) wBound = 3;
         
         //  East Bound
         if (direction == west) {
             eBound =  0 - (wBound - (distance - 1));
         } else {
-            eBound = partitionMax.x() - 1 - mX;
+            eBound = partition->max().x() - 1 - mX;
             if (eBound > 3) eBound = 3;
         }
     }

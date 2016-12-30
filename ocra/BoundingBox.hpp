@@ -82,8 +82,7 @@ public:
     
     const Coordinate checkPerimeter(vector< vector<bool> >& bitmap,
                                     Coordinate& lastBlackPixelVisited,
-                                    const Coordinate& partitionMin,
-                                    const Coordinate& partitionMax);
+                                    const Partition * const partition);
     
     void printToBitmap(vector< vector<bool> >& bitmap) const;
     void eraseFromBitmap(vector< vector<bool> >& bitmap) const;
