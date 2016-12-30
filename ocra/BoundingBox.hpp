@@ -84,11 +84,11 @@ public:
 //        return betweenX && betweenY;
 //    }
     
-    void expandBoundaries(Coordinate& blackPixel);
+    void expandBoundaries(const Coordinate& blackPixel);
     
-    int checkPerimeter(vector< vector<bool> >& bitmap,
-                                    Coordinate& lastBlackPixelVisited,
-                                    const Partition * const partition);
+    int checkPerimeter(const vector< vector<bool> >& bitmap,
+                        Coordinate& lastBlackPixelVisited,
+                        const Partition * const partition);
     
     int quickExpand(const vector< vector<bool> >& bitmap,
                     const Partition * const partition,

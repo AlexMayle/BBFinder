@@ -150,7 +150,18 @@ void printUsage(ostream& out) {
     out << "Usage: filename and number of threads required in that order.\n";
 }
 
-int belongsToBox(vector<BoundingBox>& boxes, int x, int y) {
+//  Takes a vector of BoundingBox objects and a coordinate designated by
+//  x and y to determine if (x,y) is contained within any box. If so,
+//  the containing box's max x coordinate is returned. If no such box
+//  exists, -1 is returned.
+//
+//  boxes:      Vector of BoundingBox objects
+//  x, y:       Describes a coordinate (x,y) to be tested
+//              for containment within any of the elements of boxes
+//
+//  returns:    The containing box's max x coordinate, -1 otherwise
+//
+int belongsToBox(const vector<BoundingBox>& boxes, int x, int y) {
     for (BoundingBox box : boxes) {
         if (box.contains(x, y)) {
             return box.max().x();
@@ -160,30 +171,31 @@ int belongsToBox(vector<BoundingBox>& boxes, int x, int y) {
 }
 
 //  Places the first black pixel it finds, excluding those contained in
-//  any existing bounding boxes, into result. The algorithm starts looking
-//  at startingPoint and checks the region within bitmap bound by partitionMin
-//  and partitionMax.
+//  any existing bounding boxes, given by boxes, into result. The algorithm
+//  starts looking at startingPoint and checks the region of bitmap denoted
+//  by partition. All pixels are checked on the first row before moving to the
+//  next, such that any black pixel found, if any, has the minimum y coordinate
+//  of any BoundingBox that is grown from it.
 //
 //  bitmap:         2D array representing the image
 //  startingPoint:  First spot in bitmap checked
-//  result:         Coordinate of the first black pixel found
+//  result:         Coordinate of the first black pixel found is placed here
+//                  If no such pixel, result is unmodified
 //  boxes:          Existing bounding boxes in the bitmap
-//  partitionMin:   Top left corner of partition within bitmap
-//  partitionMax:   Bottom right corner of partition within bitmap
+//  partition:      Area of bitmap to be searched
 //
 //  Returns:        True if black pixel is found, false otherwise
 //
-bool findBlackPixel(vector< vector<bool> >& bitmap,
-                    Coordinate& startingPoint,
+bool findBlackPixel(const vector< vector<bool> >& bitmap,
+                    const Coordinate& startingPoint,
                     Coordinate * result,
-                    vector<BoundingBox>& boxes,
+                    const vector<BoundingBox>& boxes,
                     const Partition * const partition) {
     
     int x = startingPoint.x();
     for (int y = startingPoint.y(); y < partition->max().y(); ++y) {
         for (x; x < partition->max().x(); ++x) {
             ++checkCount;
-            
             if (bitmap[y][x]) {
                 int nextXCoordinate = belongsToBox(boxes, x, y);
                 
@@ -209,9 +221,10 @@ bool findBlackPixel(vector< vector<bool> >& bitmap,
 //  result:                 The resulting BoundingBox object
 //  partition:              Partition object representing a section of the image
 //
-void makeBox(vector< vector<bool> >& bitmap, const Partition * const partition,
-             const Coordinate& startingPoint, BoundingBox * result) {
-    
+void makeBox(const vector< vector<bool> >& bitmap,
+             const Partition * const partition,
+             const Coordinate& startingPoint,
+             BoundingBox * result) {
     BoundingBox boundingBox = BoundingBox(startingPoint, startingPoint);
     Coordinate pixel = boundingBox.min();
     

@@ -9,7 +9,7 @@
 #include "BoundingBox.hpp"
 #include "Partition.hpp"
     
-void BoundingBox::expandBoundaries(Coordinate& blackPixel) {
+void BoundingBox::expandBoundaries(const Coordinate& blackPixel) {
     Coordinate difference = blackPixel - this->mMax;
     if (difference.x() > 0)
         mMax.setX(blackPixel.x());
@@ -23,9 +23,9 @@ void BoundingBox::expandBoundaries(Coordinate& blackPixel) {
     //      mMin.setX(blackPixel.y());
 }
 
-int BoundingBox::checkPerimeter(vector< vector<bool> >& bitmap,
-                                             Coordinate& lastBlackPixelVisited,
-                                             const Partition * const partition) {
+int BoundingBox::checkPerimeter(const vector< vector<bool> >& bitmap,
+                                Coordinate& lastBlackPixelVisited,
+                                const Partition * const partition) {
         //  +X direction
     int distanceFromLastBlackPixel = 0;
         for (int i = mMax.y() - 1; i >= mMin.y(); --i) {
