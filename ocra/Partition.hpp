@@ -20,21 +20,23 @@
 //  initialization.
 //
 class Partition {
-private:
-    BoundingBox mPartition;
-    
 public:
-    //  CONSTRUCTOR
-    //
     //  Takes a min and max coordinate to designate the top-left and bottom-right
     //  corners of the parition
     Partition(Coordinate& min, Coordinate& max);
     
     //  Get the top left coordinate of the parition
-    inline const Coordinate min() const { return mPartition.min(); };
+    inline const Coordinate min() const {
+        return mPartition.min();
+    };
     
     //  Get the bottom right coordinate of the parition
-    inline const Coordinate max() const { return mPartition.max(); };
+    inline const Coordinate max() const {
+        return mPartition.max();
+    };
+    
+private:
+    BoundingBox mPartition;
 };
 
 #endif /* Partition_hpp */

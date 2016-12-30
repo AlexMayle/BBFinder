@@ -19,13 +19,6 @@ extern int checkCount;
 class BoundingBox;
 class Partition;
 
-enum Direction {
-    north = 1,
-    east = 2,
-    west = 3,
-    south = 4
-};
-
 class Coordinate {
 private:
     int mX;
@@ -68,21 +61,6 @@ public:
     inline Coordinate operator-(const Coordinate& other) const {
         return Coordinate(mX - other.mX, mY - other.mY);
     }
-    
-    inline bool isNeighborWith(const Coordinate& candidate) const {
-        Coordinate difference = *this - candidate;
-        return ( (difference.x() <= 3) && (difference.y() <= 3) );
-    }
-    
-    Coordinate getCardinalNeighbor(const vector< vector<bool> >& bitmap,
-                                   const Partition * const partition,
-                                   const BoundingBox& boundingBox) const;
-    
-    Coordinate getAnyNeighbor(const vector< vector<bool> >& bitmap,
-                              const Partition * const partition,
-                              const BoundingBox& boundingBox,
-                              const Direction direction,
-                               int distance) const;
 };
 
 #endif /* Coordinate_hpp */

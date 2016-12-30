@@ -10,17 +10,15 @@
 #include "Partition.hpp"
     
 void BoundingBox::expandBoundaries(const Coordinate& blackPixel) {
-    Coordinate difference = blackPixel - this->mMax;
+    Coordinate difference = blackPixel - mMax;
     if (difference.x() > 0)
         mMax.setX(blackPixel.x());
     if (difference.y() > 0)
         mMax.setY(blackPixel.y());
     
-    difference = blackPixel - this->mMin;
+    difference = blackPixel - mMin;
     if (difference.x() < 0)
         mMin.setX(blackPixel.x());
-    //  if (difference.y() < 0)
-    //      mMin.setX(blackPixel.y());
 }
 
 int BoundingBox::checkPerimeter(const vector< vector<bool> >& bitmap,
@@ -235,96 +233,6 @@ int BoundingBox::fullExpandLeft(const vector< vector<bool> >& bitmap,
     return -1;
 }
 
-int BoundingBox::fullExpand(const vector< vector<bool> >& bitmap,
-               const Partition * const partition,
-               Coordinate& pixelOnPerimeter,
-               const Direction direction,
-               int distanceFromLastBlackPixel) {
-    int nBound, sBound, wBound, eBound;
-    if (distanceFromLastBlackPixel > 3) distanceFromLastBlackPixel = 3;
-    if (distanceFromLastBlackPixel == 0) {
-        //  North Bound
-        nBound = pixelOnPerimeter.y() - partition->min().y();
-        if (nBound > 3) nBound = 3;
-        
-        //  South Bound
-        sBound = partition->max().y() - 1 - pixelOnPerimeter.y();
-        if (sBound > 3) sBound = 3;
-        
-        //  West Bound
-        wBound = pixelOnPerimeter.x() - partition->min().x();
-        if (wBound > 3) wBound = 3;
-        
-        //  East Bound
-        eBound = partition->max().x() - 1 - pixelOnPerimeter.x();
-        if (eBound > 3) eBound = 3;
-    } else {
-        //  North Bound
-        nBound = pixelOnPerimeter.y() - partition->min().y();
-        if (nBound > 3) nBound = 3;
-        
-        //  South Bound
-        if (direction == north) {
-            sBound = 0 - (nBound - (distanceFromLastBlackPixel - 1));
-        } else {
-            sBound = partition->max().y() - 1 - pixelOnPerimeter.y();
-            if (sBound > 3) sBound = 3;
-        }
-        
-        //  West Bound
-        wBound = pixelOnPerimeter.x() - partition->min().x();
-        if (wBound > 3) wBound = 3;
-        
-        //  East Bound
-        if (direction == west) {
-            eBound =  0 - (wBound - (distanceFromLastBlackPixel - 1));
-        } else {
-            eBound = partition->max().x() - 1 - pixelOnPerimeter.x();
-            if (eBound > 3) eBound = 3;
-        }
-    }
-    
-    //   +X direction
-    if (pixelOnPerimeter.x() == mMax.x()) {
-        for (int y = pixelOnPerimeter.y() - nBound; y <= pixelOnPerimeter.y() + sBound; ++y) {
-            for (int x = pixelOnPerimeter.x() + eBound; x > pixelOnPerimeter.x(); --x) {
-                ++checkCount;
-                if (bitmap[y][x]){
-                    pixelOnPerimeter = Coordinate(x, y);
-                    return 0;
-                }
-            }
-        }
-    }
-    
-    // +Y direction
-    if (pixelOnPerimeter.y() == mMax.y()) {
-        for (int y = pixelOnPerimeter.y() + sBound; y > pixelOnPerimeter.y(); --y) {
-            for (int x = pixelOnPerimeter.x() - wBound; x <= pixelOnPerimeter.x() + eBound; ++x) {
-                ++checkCount;
-                if (bitmap[y][x]) {
-                    pixelOnPerimeter = Coordinate(x, y);
-                    return 0;
-                }
-            }
-        }
-    }
-    
-    //  -X direction
-    if (pixelOnPerimeter.x() == mMin.x()) {
-        for (int y = pixelOnPerimeter.y() - nBound; y <= pixelOnPerimeter.y() + sBound; ++y) {
-            for (int x = pixelOnPerimeter.x() - wBound; x < pixelOnPerimeter.x(); ++x) {
-                ++checkCount;
-                if (bitmap[y][x]) {
-                    pixelOnPerimeter = Coordinate(x, y);
-                    return 0;
-                }
-            }
-        }
-    }
-    return -1;
-}
-
 void BoundingBox::printToBitmap(vector< vector<bool> >& bitmap) const {
     for (int i = mMin.y(); i <= mMax.y(); ++i) {
         bitmap[i][mMin.x()] = true;
@@ -346,4 +254,3 @@ void BoundingBox::eraseFromBitmap(vector< vector<bool> >& bitmap) const {
         bitmap[mMax.y()][j] = false;
     }
 }
-

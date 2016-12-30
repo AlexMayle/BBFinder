@@ -17,6 +17,23 @@ private:
     Coordinate mMin;
     Coordinate mMax;
     
+    int fullExpandRight(const vector< vector<bool> >& bitmap,
+                        const Partition * const partition,
+                        Coordinate& pixelOnPerimeter,
+                        int distanceFromLastBlackPixel);
+    
+    int fullExpandBottom(const vector< vector<bool> >& bitmap,
+                         const Partition * const partition,
+                         Coordinate& pixelOnPerimeter,
+                         int distanceFromLastBlackPixel);
+    
+    int fullExpandLeft(const vector< vector<bool> >& bitmap,
+                       const Partition * const partition,
+                       Coordinate& pixelOnPerimeter,
+                       int distanceFromLastBlackPixel);
+    
+    void expandBoundaries(const Coordinate& blackPixel);
+    
 public:
     inline BoundingBox() {
         mMin = Coordinate(0, 0);
@@ -78,8 +95,6 @@ public:
         if (this->mMax.y() < other.mMax.y()) mMax.setY(other.mMax.y());
     }
     
-    void expandBoundaries(const Coordinate& blackPixel);
-    
     int checkPerimeter(const vector< vector<bool> >& bitmap,
                         Coordinate& lastBlackPixelVisited,
                         const Partition * const partition);
@@ -87,28 +102,7 @@ public:
     int quickExpand(const vector< vector<bool> >& bitmap,
                     const Partition * const partition,
                     Coordinate& pixelOnPerimeter);
-    
-    int fullExpandRight(const vector< vector<bool> >& bitmap,
-                        const Partition * const partition,
-                        Coordinate& pixelOnPerimeter,
-                        int distanceFromLastBlackPixel);
-    
-    int fullExpandBottom(const vector< vector<bool> >& bitmap,
-                         const Partition * const partition,
-                         Coordinate& pixelOnPerimeter,
-                         int distanceFromLastBlackPixel);
-    
-    int fullExpandLeft(const vector< vector<bool> >& bitmap,
-                       const Partition * const partition,
-                       Coordinate& pixelOnPerimeter,
-                       int distanceFromLastBlackPixel);
-    
-    int fullExpand(const vector< vector<bool> >& bitmap,
-                   const Partition * const partition,
-                   Coordinate& pixelOnPerimeter,
-                   const Direction direction,
-                   int distanceFromLastBlackPixel);
-    
+
     void printToBitmap(vector< vector<bool> >& bitmap) const;
     void eraseFromBitmap(vector< vector<bool> >& bitmap) const;
 };
