@@ -1,9 +1,6 @@
 //
 //  BoundingBox.cpp
-//  ocra
-//
 //  Created by Alex Mayle on 12/3/16.
-//  Copyright © 2016 Alex Mayle. All rights reserved.
 //
 
 #include "BoundingBox.hpp"
@@ -130,15 +127,15 @@ int BoundingBox::quickExpand(const std::vector< std::vector<bool> >& bitmap,
     
     //  South Bound
     sBound = partition->max().y() - 1 - pixelOnPerimeter.y();
-    if (sBound > 3) sBound = 3;
+    if (sBound > PXL_DIS_THRESH) sBound = PXL_DIS_THRESH;
     
     //  West Bound
     wBound = pixelOnPerimeter.x() - partition->min().x();
-    if (wBound > 3) wBound = 3;
+    if (wBound > PXL_DIS_THRESH) wBound = PXL_DIS_THRESH;
     
     //  East Bound
     eBound = partition->max().x() - 1 - pixelOnPerimeter.x();
-    if (eBound > 3) eBound = 3;
+    if (eBound > PXL_DIS_THRESH) eBound = PXL_DIS_THRESH;
     
     //   X direction
     if (pixelOnPerimeter.x() == mMax.x()) {
@@ -183,18 +180,18 @@ int BoundingBox::fullExpandRight(const std::vector< std::vector<bool> >& bitmap,
                                  Coordinate& pixelOnPerimeter,
                                  int distanceFromLastBlackPixel) {
     int nBound, sBound, eBound;
-    if (distanceFromLastBlackPixel > 3) distanceFromLastBlackPixel = 3;
+    if (distanceFromLastBlackPixel > PXL_DIS_THRESH) distanceFromLastBlackPixel = PXL_DIS_THRESH;
     
     //  North Bound
     nBound = pixelOnPerimeter.y() - partition->min().y();
-    if (nBound > 3) nBound = 3;
+    if (nBound > PXL_DIS_THRESH) nBound = PXL_DIS_THRESH;
     //  East Bound
     eBound = partition->max().x() - 1 - pixelOnPerimeter.x();
-    if (eBound > 3) eBound = 3;
+    if (eBound > PXL_DIS_THRESH) eBound = PXL_DIS_THRESH;
     //  South Bound
     if (distanceFromLastBlackPixel == 0) {
         sBound = partition->max().y() - 1 - pixelOnPerimeter.y();
-        if (sBound > 3) sBound = 3;
+        if (sBound > PXL_DIS_THRESH) sBound = PXL_DIS_THRESH;
     } else {
         sBound = nBound - (distanceFromLastBlackPixel - 1);
     }
@@ -217,18 +214,18 @@ int BoundingBox::fullExpandBottom(const std::vector< std::vector<bool> >& bitmap
                                  Coordinate& pixelOnPerimeter,
                                  int distanceFromLastBlackPixel) {
     int wBound, sBound, eBound;
-    if (distanceFromLastBlackPixel > 3) distanceFromLastBlackPixel = 3;
+    if (distanceFromLastBlackPixel > PXL_DIS_THRESH) distanceFromLastBlackPixel = PXL_DIS_THRESH;
     
     //  South Bound
     sBound = partition->max().y() - 1 - pixelOnPerimeter.y();
-    if (sBound > 3) sBound = 3;
+    if (sBound > PXL_DIS_THRESH) sBound = PXL_DIS_THRESH;
     //  West Bound
     wBound = pixelOnPerimeter.x() - partition->min().x();
-    if (wBound > 3) wBound = 3;
+    if (wBound > PXL_DIS_THRESH) wBound = PXL_DIS_THRESH;
     //  East Bound
     if (distanceFromLastBlackPixel == 0) {
         eBound = partition->max().x() - 1 - pixelOnPerimeter.x();
-        if (eBound > 3) eBound = 3;
+        if (eBound > PXL_DIS_THRESH) eBound = PXL_DIS_THRESH;
     } else {
         eBound =  wBound - (distanceFromLastBlackPixel - 1);
     }
@@ -251,18 +248,18 @@ int BoundingBox::fullExpandLeft(const std::vector< std::vector<bool> >& bitmap,
                                   Coordinate& pixelOnPerimeter,
                                   int distanceFromLastBlackPixel) {
     int nBound, wBound, sBound;
-    if (distanceFromLastBlackPixel > 3) distanceFromLastBlackPixel = 3;
+    if (distanceFromLastBlackPixel > PXL_DIS_THRESH) distanceFromLastBlackPixel = PXL_DIS_THRESH;
     
     //  North Bound
     nBound = pixelOnPerimeter.y() - partition->min().y();
-    if (nBound > 3) nBound = 3;
+    if (nBound > PXL_DIS_THRESH) nBound = PXL_DIS_THRESH;
     //  West Bound
     wBound = pixelOnPerimeter.x() - partition->min().x();
-    if (wBound > 3) wBound = 3;
+    if (wBound > PXL_DIS_THRESH) wBound = PXL_DIS_THRESH;
     //  South Bound
     if (distanceFromLastBlackPixel == 0) {
         sBound = partition->max().y() - 1 - pixelOnPerimeter.y();
-        if (sBound > 3) sBound = 3;
+        if (sBound > PXL_DIS_THRESH) sBound = PXL_DIS_THRESH;
     } else {
         sBound = nBound - (distanceFromLastBlackPixel - 1);
     }

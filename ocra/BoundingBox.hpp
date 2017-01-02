@@ -1,7 +1,5 @@
 //
 //  BoundingBox.hpp
-//  ocra
-//
 //  Created by Alex Mayle on 12/3/16.
 //
 //  class:      BoundingBox
@@ -11,9 +9,7 @@
 //  of its top-left and bottom-right corner. An object / shape is defined
 //  as a collection of neighboring black pixels. Two black pixels are neighbors
 //  if the distance between their x and y coordinates are both less than
-//  or equal to PIXEL_DISTANCE_THRESH.
-//
-/* ------------ */ #define PIXEL_DISTANCE_THRESH 3; /* ------------ */
+//  or equal to the static member PXL_DIS_THRESH.
 //
 //  Most public member functions take a bitmap argument, which should
 //  represent the ASCII PBM file as a 2D array of booleans such that
@@ -34,6 +30,12 @@ extern int checkCount;
 
 class BoundingBox {
 public:
+    //  The BoundingBox contains a region of "neighboring"
+    //  black pixels. Two black pixels are "neighbors" if the
+    //  distance between their x coordinates and their y coordinates
+    //  are both less than PXL_DIS_THRESH.
+    static const unsigned int PXL_DIS_THRESH = 3;
+    
     /*    Constructors    -----------------------------------    */
     BoundingBox();
 
