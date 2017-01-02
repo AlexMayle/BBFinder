@@ -1,34 +1,38 @@
 //
 //  Coordinate.hpp
-//  ocra
-//
 //  Created by Alex Mayle on 12/2/16.
-//  Copyright © 2016 Alex Mayle. All rights reserved.
+//
+//  Class:  Coordinate
+//
+//  An abstraction for a mutable coordinate pair (e.g. (x, y)).
 //
 
 #ifndef Coordinate_hpp
 #define Coordinate_hpp
 
 #include <iostream>
-#include <vector>
-
 using namespace std;
 
-extern int checkCount;
-
-class BoundingBox;
-class Partition;
 
 class Coordinate {
 private:
-    int mX;
-    int mY;
+    int mX;     //  X coordinate
+    int mY;     //  Y coordinate
     
 public:
+    /*    Constructors    -------------------------------    */
+    
     inline Coordinate(int x = 0, int y = 0) {
         mX = x;
         mY = y;
     }
+    
+    inline Coordinate(const Coordinate& other) {
+        mX = other.mX;
+        mY = other.mY;
+    }
+    
+    /*    Getters / Setters    --------------------------    */
     
     inline const int x() const {
         return mX;
@@ -46,20 +50,26 @@ public:
         mY = y;
     }
     
-    inline void print() const {
-        cout << '(' << mX << ',' << mY << ')';
-    }
+    /*    Operators    ---------------------------------    */
     
+    //  Returns true if both x and y coordinates are the same
     inline bool operator==(const Coordinate& other) const {
-        return ((mX == other.mX) && (mY == other.mY));
+        return (mX == other.mX) && (mY == other.mY);
     }
     
+    //  Returns true if either the x or y coordinates differ
     inline bool operator!=(const Coordinate& other) const {
-        return !(*this == other);
+        return !(mX == other.mX) && (mY == other.mY);
     }
     
     inline Coordinate operator-(const Coordinate& other) const {
         return Coordinate(mX - other.mX, mY - other.mY);
+    }
+    
+    /*    Output    -----------------------------------    */
+    
+    inline void print(ostream& out) const {
+        out << '(' << mX << ',' << mY << ')';
     }
 };
 

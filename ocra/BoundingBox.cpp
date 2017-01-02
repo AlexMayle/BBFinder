@@ -8,7 +8,71 @@
 
 #include "BoundingBox.hpp"
 #include "Partition.hpp"
-    
+
+BoundingBox::BoundingBox() {
+    mMin.setX(0);
+    mMin.setY(0);
+    mMax.setX(0);
+    mMax.setY(0);
+}
+
+BoundingBox::BoundingBox(const BoundingBox& other) {
+    mMin = other.mMin;
+    mMax = other.mMax;
+}
+
+BoundingBox::BoundingBox(const Coordinate& min, const Coordinate& max) {
+    mMin = min;
+    mMax = max;
+}
+
+BoundingBox::BoundingBox(const Coordinate&& min, const Coordinate&& max) {
+    mMin = min;
+    mMax = max;
+}
+
+inline const Coordinate BoundingBox::min() const {
+    return mMin;
+}
+
+inline void BoundingBox::setMin(const Coordinate& min) {
+    mMin = min;
+}
+
+inline const Coordinate BoundingBox::max() const {
+    return mMax;
+}
+
+inline void BoundingBox::setMax(const Coordinate& max) {
+    mMax = max;
+}
+
+inline bool BoundingBox::operator==(const BoundingBox& other) const {
+    return (mMax == other.mMax) && (mMin == other.mMin);
+}
+
+bool BoundingBox::contains(const Coordinate& pixel) const {
+    bool betweenX = pixel.x() >= mMin.x() && pixel.x() <= mMax.x();
+    bool betweenY = pixel.y() >= mMin.y() && pixel.y() <= mMax.y();
+    return betweenX && betweenY;
+}
+
+bool BoundingBox::contains(const int x, const int y) const {
+    bool betweenX = x >= mMin.x() && x <= mMax.x();
+    bool betweenY = y >= mMin.y() && y <= mMax.y();
+    return betweenX && betweenY;
+}
+
+bool BoundingBox::contains(const BoundingBox& other) const {
+    Coordinate topRight(other.max().x(), other.min().y());
+    Coordinate bottomLeft(other.min().x(), other.max().y());
+    bool case1 = this->contains(other.max());
+    bool case2 = this->contains(bottomLeft);
+    bool case3 = this->contains(other.min());
+    bool case4 = this->contains(topRight);
+    return case1 || case2 || case3 || case4;
+}
+
 void BoundingBox::expandBoundaries(const Coordinate& blackPixel) {
     Coordinate difference = blackPixel - mMax;
     if (difference.x() > 0)
@@ -132,9 +196,9 @@ int BoundingBox::quickExpand(const vector< vector<bool> >& bitmap,
 }
 
 int BoundingBox::fullExpandRight(const vector< vector<bool> >& bitmap,
-                            const Partition * const partition,
-                            Coordinate& pixelOnPerimeter,
-                            int distanceFromLastBlackPixel) {
+                                 const Partition * const partition,
+                                 Coordinate& pixelOnPerimeter,
+                                 int distanceFromLastBlackPixel) {
     int nBound, sBound, eBound;
     if (distanceFromLastBlackPixel > 3) distanceFromLastBlackPixel = 3;
     
@@ -253,4 +317,12 @@ void BoundingBox::eraseFromBitmap(vector< vector<bool> >& bitmap) const {
         bitmap[mMin.y()][j] = false;
         bitmap[mMax.y()][j] = false;
     }
+}
+
+void BoundingBox::print(ostream& out) const {
+    cout << '(';
+    mMin.print(out);
+    cout << ',';
+    mMax.print(out);
+    cout << ')';
 }

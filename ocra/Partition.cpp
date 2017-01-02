@@ -12,3 +12,16 @@ Partition::Partition(Coordinate& min, Coordinate& max) {
     mPartition.setMin(min);
     mPartition.setMax(max);
 }
+
+Partition::Partition(Coordinate&& min, Coordinate&& max) {
+    mPartition.setMin(min);
+    mPartition.setMax(max);
+}
+
+inline const Coordinate Partition::min() const {
+    return mPartition.min();
+};
+
+inline const Coordinate Partition::max() const {
+    return mPartition.max();
+};

@@ -9,8 +9,8 @@
 #ifndef Partition_hpp
 #define Partition_hpp
 
-#include "BoundingBox.hpp"
 #include "Coordinate.hpp"
+#include "BoundingBox.hpp"
 
 //  A semantic wrapper for the BoundingBox class when it is used in the context of
 //  denoting a partition, rather than denoting the bounding box of some object
@@ -25,15 +25,13 @@ public:
     //  corners of the parition
     Partition(Coordinate& min, Coordinate& max);
     
+    Partition(Coordinate&& min, Coordinate&& max);
+    
     //  Get the top left coordinate of the parition
-    inline const Coordinate min() const {
-        return mPartition.min();
-    };
+    inline const Coordinate min() const;
     
     //  Get the bottom right coordinate of the parition
-    inline const Coordinate max() const {
-        return mPartition.max();
-    };
+    inline const Coordinate max() const;
     
 private:
     BoundingBox mPartition;
