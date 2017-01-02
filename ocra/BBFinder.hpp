@@ -69,7 +69,7 @@ namespace BBFinder {
                         const Coordinate& startingPoint,
                         Coordinate * result,
                         const std::vector<BoundingBox>& boxes,
-                        const Partition * const partition);
+                        Partition * partition = nullptr);
     
     //  Grows a BoundingBox object starting from blackPixelLocation to its
     //  maximum size within partition on the 2D array bitmap. The resulting
@@ -81,8 +81,8 @@ namespace BBFinder {
     //  partition:              Partition object representing a section of the image
     //
     void makeBox(const std::vector<std::vector<bool> >& bitmap,
-                 const Partition * const partition,
                  const Coordinate& startingPoint,
-                 BoundingBox * result);
+                 BoundingBox * result,
+                 Partition * partition = nullptr);
 };
 #endif /* bounding_box_finder_hpp */

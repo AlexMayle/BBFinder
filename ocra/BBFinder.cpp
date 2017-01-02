@@ -18,7 +18,9 @@ bool BBFinder::findBlackPixel(const std::vector<std::vector<bool> >& bitmap,
                     const Coordinate& startingPoint,
                     Coordinate * result,
                     const std::vector<BoundingBox>& boxes,
-                    const Partition * const partition) {
+                    Partition * partition) {
+    if (!partition) partition = new Partition(Coordinate(0,0),
+                                              Coordinate(bitmap[0].size(), bitmap.size()));
     
     int x = startingPoint.x();
     for (int y = startingPoint.y(); y < partition->max().y(); ++y) {
@@ -41,9 +43,11 @@ bool BBFinder::findBlackPixel(const std::vector<std::vector<bool> >& bitmap,
 }
 
 void BBFinder::makeBox(const std::vector<std::vector<bool> >& bitmap,
-             const Partition * const partition,
-             const Coordinate& startingPoint,
-             BoundingBox * result) {
+                       const Coordinate& startingPoint,
+                       BoundingBox * result,
+                       Partition * partition) {
+    if (!partition) partition = new Partition(Coordinate(0,0),
+                                              Coordinate(bitmap[0].size(), bitmap.size()));
     BoundingBox boundingBox = BoundingBox(startingPoint, startingPoint);
     Coordinate pixel = boundingBox.min();
     
@@ -65,7 +69,7 @@ std::vector<BoundingBox>* BBFinder::findBoxesInPartition(const std::vector<std::
     
     while (findBlackPixel(bitmap, startLookingHere, &blackPixelLocation,
                           *boundingBoxes, partition)) {
-        makeBox(bitmap, partition, blackPixelLocation, &currentBox);
+        makeBox(bitmap, blackPixelLocation, &currentBox, partition);
         boundingBoxes->push_back(currentBox);
         
         if (currentBox.max().x() + 1 < partition->max().x()) {
