@@ -117,7 +117,7 @@ public:
     //
     //  return:                 0 if the box is expanded, -1 otherwise
     //
-    int checkPerimeter(const vector< vector<bool> >& bitmap,
+    int checkPerimeter(const std::vector<std::vector<bool> >& bitmap,
                         Coordinate& pixelOnPerimeter,
                         const Partition * const partition);
     
@@ -133,7 +133,7 @@ public:
     //
     //  return:                 0 if the box is expanded, -1 otherwise
     //
-    int quickExpand(const vector< vector<bool> >& bitmap,
+    int quickExpand(const std::vector<std::vector<bool> >& bitmap,
                     const Partition * const partition,
                     Coordinate& pixelOnPerimeter);
 
@@ -141,36 +141,36 @@ public:
     //
     //  bitmap:                 2D array representing an ASCII PBM image
     //
-    void printToBitmap(vector< vector<bool> >& bitmap) const;
+    void printToBitmap(std::vector<std::vector<bool> >& bitmap) const;
     
     //  Erases the BoundingBox to bitmap
     //
     //  bitmap:                 2D array representing an ASCII PBM image
     //
-    void eraseFromBitmap(vector< vector<bool> >& bitmap) const;
+    void eraseFromBitmap(std::vector<std::vector<bool> >& bitmap) const;
     
     //  Prints the BoundingBox's top left corner and bottom right corner
     //  to out. (e.g. ((0,0), (5,5))).
     //
     //  out:    Output stream to send data to
     //
-    void print(ostream& out) const;
+    void print(std::ostream& out) const;
     
 private:
     Coordinate mMin;        // Top-left corner
     Coordinate mMax;        // Bottom-Right corner
     
-    int fullExpandRight(const vector< vector<bool> >& bitmap,
+    int fullExpandRight(const std::vector<std::vector<bool> >& bitmap,
                         const Partition * const partition,
                         Coordinate& pixelOnPerimeter,
                         int distanceFromLastBlackPixel);
     
-    int fullExpandBottom(const vector< vector<bool> >& bitmap,
+    int fullExpandBottom(const std::vector<std::vector<bool> >& bitmap,
                          const Partition * const partition,
                          Coordinate& pixelOnPerimeter,
                          int distanceFromLastBlackPixel);
     
-    int fullExpandLeft(const vector< vector<bool> >& bitmap,
+    int fullExpandLeft(const std::vector<std::vector<bool> >& bitmap,
                        const Partition * const partition,
                        Coordinate& pixelOnPerimeter,
                        int distanceFromLastBlackPixel);

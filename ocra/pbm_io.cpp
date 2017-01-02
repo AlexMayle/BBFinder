@@ -4,38 +4,42 @@
 //
 
 #include "pbm_io.hpp"
+#include <iostream>
+#include <fstream>
 
-void writePBMFile(const string& outputFileName, const vector< vector<bool> >& bitmap){
-    ofstream out(outputFileName);
+void pbmIO::writePBMFile(const std::string& outputFileName,
+                  const std::vector<std::vector<bool> >& bitmap){
+    std::ofstream out(outputFileName);
     
     out << "P1\n";
-    out << bitmap[0].size() << " " << bitmap.size() << endl;
-    for (vector<bool> row : bitmap) {
+    out << bitmap[0].size() << " " << bitmap.size() << std::endl;
+    for (std::vector<bool> row : bitmap) {
         for (bool column : row) {
             if (column)
                 out << "1 ";
             else
                 out << "0 ";
         }
-        out << endl;
+        out << std::endl;
     }
     out.close();
 }
 
-void readPBMFile(const string& filename, vector< vector<bool> >& bitmap) {
+void pbmIO::readPBMFile(const std::string& filename,
+                 std::vector<std::vector<bool> >& bitmap) {
     //  Open file
-    ifstream in(filename);
+    std::ifstream in(filename);
     if (!in.good()) {
-        cout << "Error opening file, Error code: " << strerror(errno) << endl
+        std::cout << "Error opening file, Error code: " << strerror(errno) << std::endl
         << "Aborting. . .\n";
         exit(-1);
     }
     
     //  Read PBM header
-    string tokenBuf;
+    std::string tokenBuf;
     in >> tokenBuf;
     if (tokenBuf != "P1") {
-        cout << "This is not a PBMA file. It is prbably the binary version.\n"
+        std::cout << "This is not a PBMA file. It is prbably the binary version.\n"
         << "Aborting... \n";
         exit(-1);
     }

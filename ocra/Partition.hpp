@@ -32,13 +32,15 @@ public:
 
     explicit Partition(const BoundingBox& other);
     
-    explicit Partition(const BoundingBox&& other);
-
     Partition(const Partition& other);
     
     Partition(const Coordinate& topLeft, const Coordinate& bottomRight);
     
     Partition(const Coordinate&& topLeft, const Coordinate&& bottomRight);
+    
+    ~Partition();
+    
+    Partition operator=(Partition& other);
     
     /*    Public Member Functions    ------------------------    */
 

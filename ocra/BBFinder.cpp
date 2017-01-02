@@ -3,9 +3,9 @@
 //  Created by Alex Mayle on 1/1/17.
 //
 
-#include "bounding_box_finder.hpp"
+#include "BBFinder.hpp"
 
-int BBFinder::belongsToBox(const vector<BoundingBox>& boxes, int x, int y) {
+int BBFinder::belongsToBox(const std::vector<BoundingBox>& boxes, int x, int y) {
     for (BoundingBox box : boxes) {
         if (box.contains(x, y)) {
             return box.max().x();
@@ -14,10 +14,10 @@ int BBFinder::belongsToBox(const vector<BoundingBox>& boxes, int x, int y) {
     return -1;
 }
 
-bool BBFinder::findBlackPixel(const vector< vector<bool> >& bitmap,
+bool BBFinder::findBlackPixel(const std::vector<std::vector<bool> >& bitmap,
                     const Coordinate& startingPoint,
                     Coordinate * result,
-                    const vector<BoundingBox>& boxes,
+                    const std::vector<BoundingBox>& boxes,
                     const Partition * const partition) {
     
     int x = startingPoint.x();
@@ -40,7 +40,7 @@ bool BBFinder::findBlackPixel(const vector< vector<bool> >& bitmap,
     return false;
 }
 
-void BBFinder::makeBox(const vector< vector<bool> >& bitmap,
+void BBFinder::makeBox(const std::vector<std::vector<bool> >& bitmap,
              const Partition * const partition,
              const Coordinate& startingPoint,
              BoundingBox * result) {
@@ -54,11 +54,11 @@ void BBFinder::makeBox(const vector< vector<bool> >& bitmap,
     *result = boundingBox;
 }
 
-vector<BoundingBox>* BBFinder::findBoxesInPartition(const vector<vector<bool> >& bitmap,
+std::vector<BoundingBox>* BBFinder::findBoxesInPartition(const std::vector<std::vector<bool> >& bitmap,
                                                     Partition * partition) {
     if (!partition) partition = new Partition(Coordinate(0,0),
                                               Coordinate(bitmap[0].size(), bitmap.size()));
-    vector<BoundingBox> * boundingBoxes = new vector<BoundingBox>;
+    std::vector<BoundingBox> * boundingBoxes = new std::vector<BoundingBox>;
     Coordinate startLookingHere = partition->min();
     Coordinate blackPixelLocation;
     BoundingBox currentBox;

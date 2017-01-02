@@ -11,8 +11,6 @@
 #define Coordinate_hpp
 
 #include <iostream>
-using namespace std;
-
 
 class Coordinate {
 private:
@@ -58,7 +56,7 @@ public:
     /*    Output    -----------------------------------    */
     
     //  Writes (x, y) to destination out
-    void print(ostream& out) const;
+    void print(std::ostream& out) const;
     
 };
 #endif /* Coordinate_hpp */

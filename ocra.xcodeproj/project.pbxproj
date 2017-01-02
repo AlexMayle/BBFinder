@@ -12,7 +12,7 @@
 		604A3C0B1DF28DDB00231D17 /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 604A3C091DF28DDB00231D17 /* BoundingBox.cpp */; };
 		6054F37F1E15B69D00CBD6C4 /* Partition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6054F37D1E15B69D00CBD6C4 /* Partition.cpp */; };
 		6054F3841E19A2FC00CBD6C4 /* pbm_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6054F3821E19A2FC00CBD6C4 /* pbm_io.cpp */; };
-		6054F3871E19C33800CBD6C4 /* bounding_box_finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6054F3851E19C33800CBD6C4 /* bounding_box_finder.cpp */; };
+		6054F3871E19C33800CBD6C4 /* BBFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6054F3851E19C33800CBD6C4 /* BBFinder.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,8 +38,8 @@
 		6054F37E1E15B69D00CBD6C4 /* Partition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Partition.hpp; sourceTree = "<group>"; };
 		6054F3821E19A2FC00CBD6C4 /* pbm_io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pbm_io.cpp; sourceTree = "<group>"; };
 		6054F3831E19A2FC00CBD6C4 /* pbm_io.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pbm_io.hpp; sourceTree = "<group>"; };
-		6054F3851E19C33800CBD6C4 /* bounding_box_finder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bounding_box_finder.cpp; sourceTree = "<group>"; };
-		6054F3861E19C33800CBD6C4 /* bounding_box_finder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bounding_box_finder.hpp; sourceTree = "<group>"; };
+		6054F3851E19C33800CBD6C4 /* BBFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BBFinder.cpp; sourceTree = "<group>"; };
+		6054F3861E19C33800CBD6C4 /* BBFinder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BBFinder.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				604A3BFF1DF27F4400231D17 /* main.cpp */,
-				6054F3851E19C33800CBD6C4 /* bounding_box_finder.cpp */,
-				6054F3861E19C33800CBD6C4 /* bounding_box_finder.hpp */,
+				6054F3851E19C33800CBD6C4 /* BBFinder.cpp */,
+				6054F3861E19C33800CBD6C4 /* BBFinder.hpp */,
 				604A3C061DF288A900231D17 /* Coordinate.cpp */,
 				604A3C071DF288A900231D17 /* Coordinate.hpp */,
 				604A3C091DF28DDB00231D17 /* BoundingBox.cpp */,
@@ -149,7 +149,7 @@
 				604A3C001DF27F4400231D17 /* main.cpp in Sources */,
 				604A3C081DF288A900231D17 /* Coordinate.cpp in Sources */,
 				6054F3841E19A2FC00CBD6C4 /* pbm_io.cpp in Sources */,
-				6054F3871E19C33800CBD6C4 /* bounding_box_finder.cpp in Sources */,
+				6054F3871E19C33800CBD6C4 /* BBFinder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

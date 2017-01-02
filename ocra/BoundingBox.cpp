@@ -68,7 +68,7 @@ void BoundingBox::expandBoundaries(const Coordinate& blackPixel) {
         mMin.setX(blackPixel.x());
 }
 
-int BoundingBox::checkPerimeter(const vector< vector<bool> >& bitmap,
+int BoundingBox::checkPerimeter(const std::vector< std::vector<bool> >& bitmap,
                                 Coordinate& lastBlackPixelVisited,
                                 const Partition * const partition) {
     
@@ -122,7 +122,7 @@ int BoundingBox::checkPerimeter(const vector< vector<bool> >& bitmap,
     return -1;
 }
 
-int BoundingBox::quickExpand(const vector< vector<bool> >& bitmap,
+int BoundingBox::quickExpand(const std::vector< std::vector<bool> >& bitmap,
                              const Partition * const partition,
                              Coordinate& pixelOnPerimeter) {
     
@@ -178,7 +178,7 @@ int BoundingBox::quickExpand(const vector< vector<bool> >& bitmap,
     return -1;
 }
 
-int BoundingBox::fullExpandRight(const vector< vector<bool> >& bitmap,
+int BoundingBox::fullExpandRight(const std::vector< std::vector<bool> >& bitmap,
                                  const Partition * const partition,
                                  Coordinate& pixelOnPerimeter,
                                  int distanceFromLastBlackPixel) {
@@ -212,7 +212,7 @@ int BoundingBox::fullExpandRight(const vector< vector<bool> >& bitmap,
     return -1;
 }
 
-int BoundingBox::fullExpandBottom(const vector< vector<bool> >& bitmap,
+int BoundingBox::fullExpandBottom(const std::vector< std::vector<bool> >& bitmap,
                                  const Partition * const partition,
                                  Coordinate& pixelOnPerimeter,
                                  int distanceFromLastBlackPixel) {
@@ -246,7 +246,7 @@ int BoundingBox::fullExpandBottom(const vector< vector<bool> >& bitmap,
     return -1;
 }
 
-int BoundingBox::fullExpandLeft(const vector< vector<bool> >& bitmap,
+int BoundingBox::fullExpandLeft(const std::vector< std::vector<bool> >& bitmap,
                                   const Partition * const partition,
                                   Coordinate& pixelOnPerimeter,
                                   int distanceFromLastBlackPixel) {
@@ -280,7 +280,7 @@ int BoundingBox::fullExpandLeft(const vector< vector<bool> >& bitmap,
     return -1;
 }
 
-void BoundingBox::printToBitmap(vector< vector<bool> >& bitmap) const {
+void BoundingBox::printToBitmap(std::vector<std::vector<bool> >& bitmap) const {
     for (int i = mMin.y(); i <= mMax.y(); ++i) {
         bitmap[i][mMin.x()] = true;
         bitmap[i][mMax.x()] = true;
@@ -291,7 +291,7 @@ void BoundingBox::printToBitmap(vector< vector<bool> >& bitmap) const {
     }
 }
 
-void BoundingBox::eraseFromBitmap(vector< vector<bool> >& bitmap) const {
+void BoundingBox::eraseFromBitmap(std::vector< std::vector<bool> >& bitmap) const {
     for (int i = mMin.y(); i <= mMax.y(); ++i) {
         bitmap[i][mMin.x()] = false;
         bitmap[i][mMax.x()] = false;
@@ -302,10 +302,10 @@ void BoundingBox::eraseFromBitmap(vector< vector<bool> >& bitmap) const {
     }
 }
 
-void BoundingBox::print(ostream& out) const {
-    cout << '(';
+void BoundingBox::print(std::ostream& out) const {
+    out << '(';
     mMin.print(out);
-    cout << ',';
+    out << ',';
     mMax.print(out);
-    cout << ')';
+    out << ')';
 }

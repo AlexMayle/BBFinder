@@ -27,6 +27,6 @@ Coordinate Coordinate::operator-(const Coordinate& other) const {
     return Coordinate(mX - other.mX, mY - other.mY);
 }
 
-void Coordinate::print(ostream& out) const {
+void Coordinate::print(std::ostream& out) const {
     out << '(' << mX << ',' << mY << ')';
 }

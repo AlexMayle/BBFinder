@@ -17,12 +17,16 @@ Partition::Partition(const BoundingBox& other)
     : mPartition(new BoundingBox(other)) {
 }
 
-Partition::Partition(const BoundingBox&& other)
-    : mPartition(new BoundingBox(other)) {
-}
-
 Partition::Partition(const Partition& other)
     : mPartition(other.mPartition) {
+}
+
+Partition::~Partition() {
+    delete mPartition;
+}
+
+Partition Partition::operator=(Partition& other) {
+    return Partition(other);
 }
 
 const Coordinate Partition::min() const {
