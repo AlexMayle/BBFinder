@@ -5,16 +5,19 @@
 //  namespace:  BBFinder    (BoundingBoxFinder)
 //
 //  BBFinder encapsulates a number of functions used to
-//  find Bounding Box's of object's within a bitmap. Bounding Box's
-//  are rectangles that fully contain a shape or object within a bitmap.
+//  find Bounding Box's of object's within an ASCII PBM file. Bounding Box's
+//  are rectangles that fully contain a shape or object within an image.
+//  The BoundingBox object starts as a single black pixel and "grows" until
+//  all the black pixels encompassing the shape are sourrounded by the box.
 //  For more specific information about the concept of Bounding Box's refer
-//  to BoundingBox.h. The bitmap should be represented by a 2D
-//  array of booleans.
+//  to BoundingBox.hpp.
 //
-//  Use the top-level function findBoxesInPartition() to generate
-//  an array of BoundingBox objects from the bitmap. The other functions
-//  are made public in case more control is needed. For example, if
-//  each Bounding Box must be manipulated before finding another one.
+//  Use the top-level function findBoxesInPartition() to find all Bounding
+//  Box's within an image. An optional partition argument may be provided to
+//  find all the Bounding Box's within a section of the image. The other functions
+//  are made public in case more control is needed. 
+//
+//  To help with ASCII PBM file i/o, see pbm_io.hpp
 //
 #ifndef BBFinder_hpp
 #define BBFinder_hpp
@@ -29,26 +32,30 @@ namespace BBFinder {
     //  do not supply a second argument. A pointer to a vector of BoundingBox
     //  objects is returned.
     //
-    //  partitionPtr:   A pointer to the partition to search within
+    //  bitmap:         2D array representing the image
+    //  partition:      A pointer to the partition to search within
     //
     //  returns:        A pointer to a vector of BoundingBox objects
     //
     std::vector<BoundingBox>* findBoxesInPartition(const std::vector<std::vector<bool> >& bitmap,
                                               Partition * partition = nullptr);
-
-    //  Takes a vector of BoundingBox objects and a coordinate designated by
-    //  x and y to determine if (x,y) is contained within any box. If so,
-    //  the containing box's max x coordinate is returned. If no such box
-    //  exists, -1 is returned.
-    //
-    //  boxes:      Vector of BoundingBox objects
-    //  x, y:       Describes a coordinate (x,y) to be tested
-    //              for containment within any of the elements of boxes
-    //
-    //  returns:    The containing box's max x coordinate, -1 otherwise
-    //
-    int belongsToBox(const std::vector<BoundingBox>& boxes, int x, int y);
     
+    //  Grows a single BoundingBox object starting from startingPoint to its
+    //  maximum size within partition on the 2D array bitmap. If one is concerned
+    //  with the whole bitmap, do not supply a partition argument. A pointer to the
+    //  resulting BoundingBox object is returned.
+    //
+    //  bitmap:                 2D array representing the image
+    //  startingPoint:          start growing the box from this pixel
+    //  partition:              Partition object representing a section of the image
+    //                          in which the BoundingBox is allowed to grow
+    //
+    BoundingBox * growBox(const std::vector<std::vector<bool> >& bitmap,
+                          const Coordinate& startingPoint,
+                          Partition * partition = nullptr);
+    
+    //  Used to find a black pixel, from which a BoundingBox may grow from
+    //
     //  Places the first black pixel it finds, excluding those contained in
     //  any existing bounding boxes, given by boxes, into result. The algorithm
     //  starts looking at startingPoint and checks the region of bitmap denoted
@@ -65,24 +72,27 @@ namespace BBFinder {
     //
     //  Returns:        True if black pixel is found, false otherwise
     //
-    bool findBlackPixel(const std::vector<std::vector<bool> >& bitmap,
-                        const Coordinate& startingPoint,
-                        Coordinate * result,
-                        const std::vector<BoundingBox>& boxes,
-                        Partition * partition = nullptr);
+    bool getBoxSeed(const std::vector<std::vector<bool> >& bitmap,
+                    const Coordinate& startingPoint,
+                    Coordinate * result,
+                    const std::vector<BoundingBox>& boxes,
+                    Partition * partition = nullptr);
+
+    //  Used to determine if a black pixel is part of a BoundingBox
+    //  already, or if it can be used to grow a new BoundingBox
+    //
+    //  Takes a vector of BoundingBox objects and a coordinate designated by
+    //  x and y to determine if (x,y) is contained within any box. If so,
+    //  the containing box's max x coordinate is returned. If no such box
+    //  exists, -1 is returned.
+    //
+    //  boxes:      Vector of BoundingBox objects
+    //  x, y:       Describes a coordinate (x,y) to be tested
+    //              for containment within any of the elements of boxes
+    //
+    //  returns:    The containing box's max x coordinate, -1 otherwise
+    //
+    int belongsToBox(const std::vector<BoundingBox>& boxes, int x, int y);
     
-    //  Grows a BoundingBox object starting from blackPixelLocation to its
-    //  maximum size within partition on the 2D array bitmap. The resulting
-    //  BoundingBox is assigned to the result argument
-    //
-    //  bitmap:                 2D array representing the image
-    //  blackPixelLocation:     start growing the box from this pixel
-    //  result:                 The resulting BoundingBox object
-    //  partition:              Partition object representing a section of the image
-    //
-    void makeBox(const std::vector<std::vector<bool> >& bitmap,
-                 const Coordinate& startingPoint,
-                 BoundingBox * result,
-                 Partition * partition = nullptr);
 };
 #endif /* bounding_box_finder_hpp */

@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ocra/BBFinder.hpp"
-            timestampString = "505043898.695826"
+            timestampString = "505094115.064319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19">
+            startingLineNumber = "22"
+            endingLineNumber = "22">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

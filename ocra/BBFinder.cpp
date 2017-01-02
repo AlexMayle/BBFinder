@@ -14,11 +14,13 @@ int BBFinder::belongsToBox(const std::vector<BoundingBox>& boxes, int x, int y) 
     return -1;
 }
 
-bool BBFinder::findBlackPixel(const std::vector<std::vector<bool> >& bitmap,
-                    const Coordinate& startingPoint,
-                    Coordinate * result,
-                    const std::vector<BoundingBox>& boxes,
-                    Partition * partition) {
+bool BBFinder::getBoxSeed(const std::vector<std::vector<bool> >& bitmap,
+                          const Coordinate& startingPoint,
+                          Coordinate * result,
+                          const std::vector<BoundingBox>& boxes,
+                          Partition * partition)
+{
+    //  If no partition is provided, make it the same size as bitmap
     if (!partition) partition = new Partition(Coordinate(0,0),
                                               Coordinate(bitmap[0].size(), bitmap.size()));
     
@@ -42,43 +44,46 @@ bool BBFinder::findBlackPixel(const std::vector<std::vector<bool> >& bitmap,
     return false;
 }
 
-void BBFinder::makeBox(const std::vector<std::vector<bool> >& bitmap,
-                       const Coordinate& startingPoint,
-                       BoundingBox * result,
-                       Partition * partition) {
+BoundingBox * BBFinder::growBox(const std::vector<std::vector<bool> >& bitmap,
+                                const Coordinate& startingPoint,
+                                Partition * partition)
+{
+    //  If no partition is provided, make it the same size as bitmap
     if (!partition) partition = new Partition(Coordinate(0,0),
                                               Coordinate(bitmap[0].size(), bitmap.size()));
-    BoundingBox boundingBox = BoundingBox(startingPoint, startingPoint);
-    Coordinate pixel = boundingBox.min();
+    BoundingBox * boundingBox = new BoundingBox(startingPoint, startingPoint);
+    Coordinate pixel = boundingBox->min();
     
     do {
-        while (!boundingBox.quickExpand(bitmap, partition, pixel));
-    } while (!boundingBox.checkPerimeter(bitmap, pixel, partition));
+        while (!boundingBox->quickExpand(bitmap, partition, pixel));
+    } while (!boundingBox->checkPerimeter(bitmap, pixel, partition));
     
-    *result = boundingBox;
+    return boundingBox;
 }
 
 std::vector<BoundingBox>* BBFinder::findBoxesInPartition(const std::vector<std::vector<bool> >& bitmap,
-                                                    Partition * partition) {
+                                                         Partition * partition)
+{
+    //  If no partition is provided, make it the same size as bitmap
     if (!partition) partition = new Partition(Coordinate(0,0),
                                               Coordinate(bitmap[0].size(), bitmap.size()));
     std::vector<BoundingBox> * boundingBoxes = new std::vector<BoundingBox>;
     Coordinate startLookingHere = partition->min();
     Coordinate blackPixelLocation;
-    BoundingBox currentBox;
     
-    while (findBlackPixel(bitmap, startLookingHere, &blackPixelLocation,
-                          *boundingBoxes, partition)) {
-        makeBox(bitmap, blackPixelLocation, &currentBox, partition);
-        boundingBoxes->push_back(currentBox);
+    while (getBoxSeed(bitmap, startLookingHere, &blackPixelLocation,
+                      *boundingBoxes, partition)) {
+        BoundingBox * box = growBox(bitmap, blackPixelLocation, partition);
+        boundingBoxes->push_back(*box);
         
-        if (currentBox.max().x() + 1 < partition->max().x()) {
-            startLookingHere.setX(currentBox.max().x() + 1);
-            startLookingHere.setY(currentBox.min().y());
+        if (box->max().x() + 1 < partition->max().x()) {
+            startLookingHere.setX(box->max().x() + 1);
+            startLookingHere.setY(box->min().y());
         } else {
             startLookingHere.setX(partition->min().x());
             startLookingHere.setY(blackPixelLocation.y());
         }
+        delete box;
     }
     return boundingBoxes;
 }
