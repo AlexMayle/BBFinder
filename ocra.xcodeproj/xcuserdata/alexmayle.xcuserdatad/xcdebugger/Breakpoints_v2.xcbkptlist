@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ocra/BoundingBox.cpp"
-            timestampString = "504834474.928886"
+            filePath = "ocra/bounding_box_finder.cpp"
+            timestampString = "505025688.225045"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "BoundingBox::checkPerimeter(const vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; lastBlackPixelVisited, const Partition * const partition)"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "BBFinder::makeBox(const vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, const Partition * const partition, const Coordinate&amp; startingPoint, BoundingBox * result)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ocra/BoundingBox.cpp"
-            timestampString = "504834474.928886"
+            filePath = "ocra/bounding_box_finder.cpp"
+            timestampString = "505039282.139695"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "BoundingBox::checkPerimeter(const vector&lt; vector&lt;bool&gt; &gt;&amp; bitmap, Coordinate&amp; lastBlackPixelVisited, const Partition * const partition)"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "BBFinder::findBoxesInPartition(const vector&lt;vector&lt;bool&gt; &gt;&amp; bitmap, Partition * partition)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,62 +41,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ocra/main.cpp"
-            timestampString = "504996802.210871"
+            filePath = "ocra/bounding_box_finder.cpp"
+            timestampString = "505039282.139695"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "main(int argc, const char * argv[])"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ocra/main.cpp"
-            timestampString = "504996802.210871"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "main(int argc, const char * argv[])"
-            landmarkType = "9">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "main"
-                  moduleName = "ocra"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alexmayle/Documents/CS4420/ocra/ocra/main.cpp"
-                  timestampString = "504835799.045111"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "296"
-                  endingLineNumber = "296"
-                  offsetFromSymbolStart = "3310">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "main"
-                  moduleName = "ocra"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alexmayle/Documents/CS4420/ocra/ocra/main.cpp"
-                  timestampString = "504835799.047372"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "296"
-                  endingLineNumber = "296"
-                  offsetFromSymbolStart = "3727">
-               </Location>
-            </Locations>
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "BBFinder::findBoxesInPartition(const vector&lt;vector&lt;bool&gt; &gt;&amp; bitmap, Partition * partition)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

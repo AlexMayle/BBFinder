@@ -1,14 +1,11 @@
 //
 //  bounding_box_finder.cpp
-//  ocra
-//
 //  Created by Alex Mayle on 1/1/17.
-//  Copyright © 2017 Alex Mayle. All rights reserved.
 //
 
 #include "bounding_box_finder.hpp"
 
-int belongsToBox(const vector<BoundingBox>& boxes, int x, int y) {
+int BBFinder::belongsToBox(const vector<BoundingBox>& boxes, int x, int y) {
     for (BoundingBox box : boxes) {
         if (box.contains(x, y)) {
             return box.max().x();
@@ -17,7 +14,7 @@ int belongsToBox(const vector<BoundingBox>& boxes, int x, int y) {
     return -1;
 }
 
-bool findBlackPixel(const vector< vector<bool> >& bitmap,
+bool BBFinder::findBlackPixel(const vector< vector<bool> >& bitmap,
                     const Coordinate& startingPoint,
                     Coordinate * result,
                     const vector<BoundingBox>& boxes,
@@ -43,7 +40,7 @@ bool findBlackPixel(const vector< vector<bool> >& bitmap,
     return false;
 }
 
-void makeBox(const vector< vector<bool> >& bitmap,
+void BBFinder::makeBox(const vector< vector<bool> >& bitmap,
              const Partition * const partition,
              const Coordinate& startingPoint,
              BoundingBox * result) {
@@ -57,8 +54,10 @@ void makeBox(const vector< vector<bool> >& bitmap,
     *result = boundingBox;
 }
 
-vector<BoundingBox>* findBoxesInPartition(vector<vector<bool> >& bitmap,
-                                          Partition * partition) {
+vector<BoundingBox>* BBFinder::findBoxesInPartition(const vector<vector<bool> >& bitmap,
+                                                    Partition * partition) {
+    if (!partition) partition = new Partition(Coordinate(0,0),
+                                              Coordinate(bitmap[0].size(), bitmap.size()));
     vector<BoundingBox> * boundingBoxes = new vector<BoundingBox>;
     Coordinate startLookingHere = partition->min();
     Coordinate blackPixelLocation;

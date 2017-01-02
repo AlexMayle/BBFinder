@@ -1,27 +1,34 @@
 //
 //  Partition.cpp
-//  ocra
-//
 //  Created by Alex Mayle on 12/29/16.
-//  Copyright © 2016 Alex Mayle. All rights reserved.
 //
 
 #include "Partition.hpp"
+#include "BoundingBox.hpp"
 
-Partition::Partition(Coordinate& min, Coordinate& max) {
-    mPartition.setMin(min);
-    mPartition.setMax(max);
+Partition::Partition(const Coordinate& topLeft, const Coordinate& bottomRight)
+    : mPartition(new BoundingBox(topLeft, bottomRight)) {
+}
+Partition::Partition(const Coordinate&& topLeft, const Coordinate&& bottomRight)
+    : mPartition(new BoundingBox(topLeft, bottomRight)) {
 }
 
-Partition::Partition(Coordinate&& min, Coordinate&& max) {
-    mPartition.setMin(min);
-    mPartition.setMax(max);
+Partition::Partition(const BoundingBox& other)
+    : mPartition(new BoundingBox(other)) {
 }
 
-inline const Coordinate Partition::min() const {
-    return mPartition.min();
+Partition::Partition(const BoundingBox&& other)
+    : mPartition(new BoundingBox(other)) {
+}
+
+Partition::Partition(const Partition& other)
+    : mPartition(other.mPartition) {
+}
+
+const Coordinate Partition::min() const {
+    return mPartition->min();
 };
 
-inline const Coordinate Partition::max() const {
-    return mPartition.max();
+const Coordinate Partition::max() const {
+    return mPartition->max();
 };

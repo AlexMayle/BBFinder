@@ -7,9 +7,10 @@
 //  class:      BoundingBox
 //
 //  Represents the box that bounds some object / shape within
-//  an ASCII PBM image. An object / shape is defined as a collection
-//  of neighboring black pixels. Two black pixels are neighbors if
-//  the distance between their x and y coordinates are both less than
+//  an ASCII PBM image. The BoundingBox is described by the coordinates
+//  of its top-left and bottom-right corner. An object / shape is defined
+//  as a collection of neighboring black pixels. Two black pixels are neighbors
+//  if the distance between their x and y coordinates are both less than
 //  or equal to PIXEL_DISTANCE_THRESH.
 //
 /* ------------ */ #define PIXEL_DISTANCE_THRESH 3; /* ------------ */
@@ -18,7 +19,8 @@
 //  represent the ASCII PBM file as a 2D array of booleans such that
 //  black pixels are True and white pixels are False. They also take
 //  a partition argument, which is itself a BoundingBox that describes
-//  a section of the bitmap in which the BoundingBox can grow. 
+//  a section of the bitmap to be concerned with.
+//
 
 #ifndef BoundingBox_hpp
 #define BoundingBox_hpp
@@ -26,10 +28,9 @@
 #include <fstream>
 #include <vector>
 #include "Coordinate.hpp"
+#include "Partition.hpp"
 
 extern int checkCount;
-
-class Partition;
 
 class BoundingBox {
 public:
@@ -44,17 +45,31 @@ public:
     
     /*    Setters / Getters    ------------------------------    */
     
-    inline const Coordinate min() const;
+    //  Returns the coordinate representing the top-left corner of the box
+    inline const Coordinate min() const {
+        return mMin;
+    }
     
-    inline void setMin(const Coordinate& min);
+    //  Sets the top-left corner of the box
+    inline void setMin(const Coordinate& min) {
+        mMin = min;
+    }
     
-    inline const Coordinate max() const;
+    //  Returns the coordinate representing the bottom-right corner of the box
+    inline const Coordinate max() const {
+        return mMax;
+    }
     
-    inline void setMax(const Coordinate& max);
+    //  Sets the bottom-right corner of the box
+    inline void setMax(const Coordinate& max) {
+        mMax = max;
+    }
     
     /*    Operators    ---------------------------------------    */
 
-    inline bool operator==(const BoundingBox& other) const;
+    //  Returns true if this BoundingBox is in the exact same position
+    //  as other
+    bool operator==(const BoundingBox& other) const;
     
     /*    Public Member Functions    -------------------------    */
     
@@ -142,8 +157,8 @@ public:
     void print(ostream& out) const;
     
 private:
-    Coordinate mMin;
-    Coordinate mMax;
+    Coordinate mMin;        // Top-left corner
+    Coordinate mMax;        // Bottom-Right corner
     
     int fullExpandRight(const vector< vector<bool> >& bitmap,
                         const Partition * const partition,

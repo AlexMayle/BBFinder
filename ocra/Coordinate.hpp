@@ -22,15 +22,9 @@ private:
 public:
     /*    Constructors    -------------------------------    */
     
-    inline Coordinate(int x = 0, int y = 0) {
-        mX = x;
-        mY = y;
-    }
+    Coordinate(int x = 0, int y = 0);
     
-    inline Coordinate(const Coordinate& other) {
-        mX = other.mX;
-        mY = other.mY;
-    }
+    Coordinate(const Coordinate& other);
     
     /*    Getters / Setters    --------------------------    */
     
@@ -53,24 +47,18 @@ public:
     /*    Operators    ---------------------------------    */
     
     //  Returns true if both x and y coordinates are the same
-    inline bool operator==(const Coordinate& other) const {
-        return (mX == other.mX) && (mY == other.mY);
-    }
+    bool operator==(const Coordinate& other) const;
     
     //  Returns true if either the x or y coordinates differ
-    inline bool operator!=(const Coordinate& other) const {
-        return !(mX == other.mX) && (mY == other.mY);
-    }
+    bool operator!=(const Coordinate& other) const;
     
-    inline Coordinate operator-(const Coordinate& other) const {
-        return Coordinate(mX - other.mX, mY - other.mY);
-    }
+    //  Member wise subtraction (e.g. (5,3) - (2,1) = (3,2))
+    Coordinate operator-(const Coordinate& other) const;
     
     /*    Output    -----------------------------------    */
     
-    inline void print(ostream& out) const {
-        out << '(' << mX << ',' << mY << ')';
-    }
+    //  Writes (x, y) to destination out
+    void print(ostream& out) const;
+    
 };
-
 #endif /* Coordinate_hpp */

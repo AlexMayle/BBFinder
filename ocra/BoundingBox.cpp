@@ -7,7 +7,6 @@
 //
 
 #include "BoundingBox.hpp"
-#include "Partition.hpp"
 
 BoundingBox::BoundingBox() {
     mMin.setX(0);
@@ -31,23 +30,7 @@ BoundingBox::BoundingBox(const Coordinate&& min, const Coordinate&& max) {
     mMax = max;
 }
 
-inline const Coordinate BoundingBox::min() const {
-    return mMin;
-}
-
-inline void BoundingBox::setMin(const Coordinate& min) {
-    mMin = min;
-}
-
-inline const Coordinate BoundingBox::max() const {
-    return mMax;
-}
-
-inline void BoundingBox::setMax(const Coordinate& max) {
-    mMax = max;
-}
-
-inline bool BoundingBox::operator==(const BoundingBox& other) const {
+bool BoundingBox::operator==(const BoundingBox& other) const {
     return (mMax == other.mMax) && (mMin == other.mMin);
 }
 

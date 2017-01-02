@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "bounding_box_finder.hpp"
+#include "Partition.hpp"
 
 using namespace std;
 
@@ -32,8 +33,7 @@ int main(int argc, const char * argv[]) {
     }
     
     //  Find boxes
-    Partition partition(Coordinate(0,0), Coordinate(bitmap[0].size(), bitmap.size()));
-    vector<BoundingBox> * boxes = findBoxesInPartition(bitmap, &partition);
+    vector<BoundingBox> * boxes = BBFinder::findBoxesInPartition(bitmap);
     
     //  Output boxes
     for (auto box : *boxes) {

@@ -1,9 +1,6 @@
 //
 //  pbm_io.hpp
-//  ocra
-//
 //  Created by Alex Mayle on 1/1/17.
-//  Copyright © 2017 Alex Mayle. All rights reserved.
 //
 
 #ifndef pbm_io_hpp
@@ -26,8 +23,6 @@ using namespace std;
 //  bitmap:             2D boolean array representing a PBM file to be
 //                      printed to file outputFileName
 //
-//  return:             VOID
-//
 void writePBMFile(const string& outputFileName, const vector< vector<bool> >& bitmap);
 
 //  Reads PBM file designated by filename and places its contents
@@ -39,8 +34,6 @@ void writePBMFile(const string& outputFileName, const vector< vector<bool> >& bi
 //  bitmap:     A 2D boolean array to be filled with the contents
 //              of the file designated by filename. The contents
 //              of the array prior to being pass are overwritten, if any.
-//
-//  return:     VOID
 //
 void readPBMFile(const string& filename, vector< vector<bool> >& bitmap);
 
