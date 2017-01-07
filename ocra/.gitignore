@@ -1,0 +1,5 @@
+ocra.xcodeproj/*
+*.o
+*.pbm
+*.pbm.new
+report.txt

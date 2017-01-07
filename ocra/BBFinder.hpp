@@ -13,11 +13,15 @@
 //  to BoundingBox.hpp.
 //
 //  Use the top-level function findBoxesInPartition() to find all Bounding
-//  Box's within an image. An optional partition argument may be provided to
-//  find all the Bounding Box's within a section of the image. The other functions
-//  are made public in case more control is needed. 
+//  Box's within an image. Other functions allow the creation of a BoundingBox
+//  from a single "seed" black pixel. An optional partition argument may be
+//  provided to most functions to find all the Bounding Box's within
+//  only a section of the image. For more info on Partitions refer to Partition.hpp
 //
-//  To help with ASCII PBM file i/o, see pbm_io.hpp
+//  Most public member functions take a bitmap argument, which should
+//  represent the ASCII PBM file as a 2D array of booleans such that
+//  black pixels are True and white pixels are False. For help with
+//  generating such a bitmap, see pbm_io.hpp.
 //
 #ifndef BBFinder_hpp
 #define BBFinder_hpp

@@ -13,9 +13,12 @@
 //
 //  Most public member functions take a bitmap argument, which should
 //  represent the ASCII PBM file as a 2D array of booleans such that
-//  black pixels are True and white pixels are False. They also take
-//  a partition argument, which is itself a BoundingBox that describes
-//  a section of the bitmap to be concerned with.
+//  black pixels are True and white pixels are False. For help with
+//  generating such a bitmap, see pbm_io.hpp.
+
+//  They also take partition argument, which is itself a BoundingBox that
+//  describes a section of the bitmap in which to look for Bounding Box's.
+//  For more info on Partitions refer to Partition.hpp
 //
 
 #ifndef BoundingBox_hpp

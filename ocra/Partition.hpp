@@ -4,12 +4,11 @@
 //
 //  class:  Partition
 //
-//  This is essentially an immutable BoundingBox object used to denote
-//  an area within a bitmap represented as a 2D boolean array. Like
-//  the BoundingBox object it is described by it's top-left and
-//  bottom-right corner coordinates.
+//  Represents a rectangular portion of an image. It is described
+//  by its top-left and bottom-right coordinates of the rectangle.
 //
-//  For a more flexible and mutable version, use BoundingBox instead
+//  This is essentially an immutable wrapper for the BoundingBox class
+//  in BoundingBox.hpp
 //
 
 #ifndef Partition_hpp
@@ -17,15 +16,9 @@
 
 #include "Coordinate.hpp"
 
+//  Fwd Dec
 class BoundingBox;
 
-//  A semantic wrapper for the BoundingBox class when it is used in the context of
-//  denoting a partition, rather than denoting the bounding box of some object
-//  within a parition.
-//
-//  Unlike a BoundingBox object, however, Parition objects cannot be changed after
-//  initialization.
-//
 class Partition {
 public:
     /*    Constructors    -----------------------------------    */
@@ -39,6 +32,8 @@ public:
     Partition(const Coordinate&& topLeft, const Coordinate&& bottomRight);
     
     ~Partition();
+    
+    /*    Operators    --------------------------------------    */
     
     Partition operator=(Partition& other);
     

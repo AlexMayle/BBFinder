@@ -5,12 +5,15 @@
 //  namespace:  pbmIO   (PBM file I/O)
 //
 //  pbmIO encapsulates I/O functions for going between ASCII PBM files
-//  and 2D boolean arrays. This is not a robust package in the sense
+//  and 2D boolean arrays.
+//
+//  This is not a robust package in the sense
 //  that if an error occurs during file i/o, an appropriate error
 //  will be sent to stdout, but the program will simply terminate.
 //
 //  These are specifically useful in conjuction with the functions
-//  found in the BBFinder (Bounding Box Finder) namespace.
+//  found in the BBFinder (Bounding Box Finder) namespace, as they
+//  operate on PBM files represented by 2D boolean arrays.
 //
 
 #ifndef pbm_io_hpp

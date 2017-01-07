@@ -4,14 +4,16 @@
 //
 //  Driver program for BBFinder
 //
-//  This program takes any ASCII PBM file, finds the
-//  Bounding Box's for all of the shapes in the image,
-//  and then outputs a new PBM file "<input file>.new"
-//  with the BoundingBox's drawn to the image.
+//  This program takes any ASCII PBM file, finds the Bounding
+//  Box's for all of the shapes in the image and then outputs a
+//  new PBM file "<input file>.new" with the BoundingBox's drawn
+//  to the image.
 //
-//  The Bounding Box's are found using the
-//  findBoxesInPartition() function. The PBM file i/o is
-//  handled using the functions in pbm_io.h.
+//  For interface specifics, refer to BBFinder.hpp. For more information
+//  about the concept of Bounding Box's, refer to BoundingBox.hpp
+//
+//  The Bounding Box's are found using the findBoxesInPartition() function.
+//  The PBM file i/o is handled using the functions in pbm_io.h.
 //
 
 #include <iostream>
