@@ -1,6 +1,5 @@
 ocra.xcodeproj/*
 *.o
-*.pbm
 *.pbm.new
 report.txt
 bounding_box_finder
